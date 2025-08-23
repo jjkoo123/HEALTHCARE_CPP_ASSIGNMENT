@@ -17,3 +17,4 @@
 18,qwe,1,1001:3;,30.00,3.00,0.00,30.00,3.00,0.00,NEWBIE,fixed,Completed,Touch n Go,ZX20679807
 19,rrrrrr,2,2001:6;,120.00,12.00,0.00,118.80,13.20,0.10,AUTO_TIER,automatic_tier,Completed,Credit Card,ZX20707249
 20,qse,1,1001:3;,30.00,3.18,1.80,34.98,0.00,0.00,,,Completed,Credit Card,ZX28662807
+21,qwe,1,1001:3;,30.00,3.18,1.80,30.78,4.20,0.12,AUTO_TIME,automatic_time,Completed,Credit Card,ZX31920807
