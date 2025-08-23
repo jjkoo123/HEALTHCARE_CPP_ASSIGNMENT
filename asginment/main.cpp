@@ -195,6 +195,8 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog);
 void saveOrderHistory(const vector<Order> &orders, const string &filename);
 void loadOrderHistory(vector<Order> &orders, const string &filename);
 void loadItems(vector<item> &items, const string &filename);
+void saveTaxConfig(const TaxConfig &config, const string &filename);
+void loadTaxConfig(TaxConfig &config, const string &filename);
 void returnToPreviousPage();
 
 // Step-based navigation function
@@ -566,6 +568,74 @@ void loadItems(vector<item> &items, const string &filename)
         {
             cout << "Error: Invalid item data in file: " << line << endl;
         }
+    }
+    fin.close();
+}
+
+void saveTaxConfig(const TaxConfig &config, const string &filename)
+{
+    ofstream fout(filename);
+    if (!fout.is_open())
+    {
+        cout << "⚠️  Warning: Could not save tax configuration to " << filename << "\n";
+        return;
+    }
+    
+    // Save tax configuration in simple format
+    fout << config.standardRate << "\n";
+    fout << config.serviceChargeEnabled << "\n";
+    fout << config.serviceChargeRate << "\n";
+    
+    if (fout.good())
+    {
+        cout << "✅ Tax configuration saved successfully to " << filename << "\n";
+    }
+    else
+    {
+        cout << "⚠️  Warning: There may have been an error saving tax configuration to " << filename << "\n";
+    }
+    fout.close();
+}
+
+void loadTaxConfig(TaxConfig &config, const string &filename)
+{
+    ifstream fin(filename);
+    if (!fin.is_open())
+    {
+        cout << "ℹ️  No existing tax configuration found. Using default settings.\n";
+        return;
+    }
+    
+    string line;
+    try
+    {
+        // Load standard tax rate
+        if (getline(fin, line))
+        {
+            config.standardRate = stod(line);
+        }
+        
+        // Load service charge enabled status
+        if (getline(fin, line))
+        {
+            config.serviceChargeEnabled = (line == "1");
+        }
+        
+        // Load service charge rate
+        if (getline(fin, line))
+        {
+            config.serviceChargeRate = stod(line);
+        }
+        
+        cout << "✅ Tax configuration loaded successfully from " << filename << "\n";
+    }
+    catch (...)
+    {
+        cout << "⚠️  Error reading tax configuration. Using default settings.\n";
+        // Reset to default values
+        config.standardRate = 0.10;
+        config.serviceChargeEnabled = true;
+        config.serviceChargeRate = 0.06;
     }
     fin.close();
 }
@@ -1247,8 +1317,8 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
 
         cout << "║" << centerText(to_string(order.orderId), 7)
              << "║" << centerText(order.customer.name, 22)
-             << "║" << centerText(statusDisplay, 18)
-             << "║" << centerText(paymentDisplay, 16)
+             << "║" << centerText(statusDisplay, 19)
+             << "║" << centerText(paymentDisplay, 18)
              << "║" << centerText(totalStream.str(), 15)
              << "║" << centerText(to_string(orderItemCount) + " items", 18)
              << "║\n";
@@ -1259,14 +1329,14 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
     cout << "╠═══════╩══════════════════════╩══════════════════╩════════════════╩═══════════════╩══════════════════╣\n";
 
     // Detailed items breakdown
-    cout << "║                                                                                                  ║\n";
-    cout << "║                                � DETAILED ORDER BREAKDOWN                                        ║\n";
-    cout << "║                                                                                                  ║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "║                                                                                                     ║\n";
+    cout << "║                                   � DETAILED ORDER BREAKDOWN                                        ║\n";
+    cout << "║                                                                                                     ║\n";
+    cout << "╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
 
     for (const auto &order : orders)
     {
-        cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
+        cout << "\n╔═════════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
         cout << "║ 🧾 Order #" << order.orderId << " - " << order.customer.name;
         if (!order.transactionId.empty())
         {
@@ -1275,7 +1345,7 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         cout << string(max(0, 76 - (int)(to_string(order.orderId).length() + order.customer.name.length() +
                                          (order.transactionId.empty() ? 0 : order.transactionId.length() + 19))),
                        ' ')
-             << "    ║\n";
+             << "           ║\n";
         cout << "╠══════════════════════════════╦═══════╦═══════════╦═══════════════╦═══════════════╦══════════════════╣\n";
         cout << "║         ITEM NAME            ║  QTY  ║   PRICE   ║   SUBTOTAL    ║   DISCOUNT    ║   ORDER TOTAL    ║\n";
         cout << "╠══════════════════════════════╬═══════╬═══════════╬═══════════════╬═══════════════╬══════════════════╣\n";
@@ -1322,22 +1392,49 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
 
         cout << "╠══════════════════════════════╩═══════╩═══════════╩═══════════════╩═══════════════╩══════════════════╣\n";
 
-        // Show discount type used next to payment info with better formatting
-        string discountInfo = "❌ None";
-        if (!order.discountCode.empty())
-        {
-            discountInfo = "🎫 " + order.discountCode + " (" + to_string((int)(order.discountRate * 100)) + "%)";
+        // Order Information Table
+        cout << "║                                                                                                     ║\n";
+        cout << "╠═══════════════════════════════════╦══════════════════════════════════╦══════════════════════════════╣\n";
+        cout << "║" << centerText("💳 PAYMENT METHOD", 37) << "║" << centerText("🎁 DISCOUNT", 36) << "║" << centerText("📊 STATUS", 32) << "║\n";
+        cout << "╠═══════════════════════════════════╬══════════════════════════════════╬══════════════════════════════╣\n";
+
+        // Prepare payment method display
+        string paymentDisplay = order.paymentMethod.empty() ? "❓ Unknown" : "� " + order.paymentMethod;
+        if (paymentDisplay.length() > 33) {
+            paymentDisplay = paymentDisplay.substr(0, 30) + "...";
         }
 
-        string statusInfo = order.status.empty() ? "❓ Unknown" : "📋 " + order.status;
-        string paymentInfo = order.paymentMethod.empty() ? "❓ Unknown" : "💳 " + order.paymentMethod;
+        // Prepare discount display
+        string discountDisplay;
+        if (order.discountAmount > 0) {
+            if (!order.discountCode.empty()) {
+                discountDisplay = "🏷️ " + order.discountCode;
+                if (order.discountType == "percentage") {
+                    discountDisplay += " (" + to_string((int)(order.discountRate * 100)) + "%)";
+                }
+            } else {
+                discountDisplay = "🎁 Applied";
+            }
+        } else {
+            discountDisplay = "❌ No Discount";
+        }
 
-        cout << "║                                                                                                  ║\n";
-        cout << "║ " << leftAlign(paymentInfo, 28)
-             << " │ " << leftAlign(discountInfo, 28)
-             << " │ " << leftAlign(statusInfo, 28) << " ║\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "╚═══════════════════════════════════════════════════════════════════════╩══════════════════════════╝\n";
+        // Prepare status display
+        string statusDisplay;
+        if (order.status == "Completed") {
+            statusDisplay = "✅ " + order.status;
+        } else if (order.status == "Pending") {
+            statusDisplay = "⏳ " + order.status;
+        } else if (order.status == "Cancelled") {
+            statusDisplay = "❌ " + order.status;
+        } else if (order.status.empty()) {
+            statusDisplay = "❓ Unknown";
+        } else {
+            statusDisplay = "📋 " + order.status;
+        }
+
+        cout << "║" << centerText(paymentDisplay, 37) << "║" << centerText(discountDisplay, 40) << "║" << centerText(statusDisplay, 31) << "║\n";
+        cout << "╚═══════════════════════════════════╩══════════════════════════════════╩══════════════════════════════╝\n";
     }
 
     // Summary section moved here - after detailed breakdown
@@ -1701,11 +1798,11 @@ CATEGORY_SELECTION:
         cout << "║" << centerText("📋 REVIEW NEW ITEM", 98) << "║\n";
         cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
         cout << "║                                                                                                  ║\n";
-        cout << "║  📂 Category: " << setw(15) << left << newItem.category << "                                               ║\n";
-        cout << "║  📦 Name: " << setw(19) << left << newItem.name << "                                               ║\n";
-        cout << "║  🏷️  Code: " << setw(20) << left << newItem.code << "                                               ║\n";
-        cout << "║  💰 Price: RM " << setw(15) << left << fixed << setprecision(2) << newItem.price << "                                               ║\n";
-        cout << "║  📊 Stock: " << setw(19) << left << newItem.stock << "                                               ║\n";
+        cout << "║  📂 Category: " << setw(15) << left << newItem.category << "                                      ║\n";
+        cout << "║  📦 Name: " << setw(19) << left << newItem.name << "                                              ║\n";
+        cout << "║  🏷️  Code: " << setw(20) << left << newItem.code << "                                             ║\n";
+        cout << "║  💰 Price: RM " << setw(15) << left << fixed << setprecision(2) << newItem.price << "             ║\n";
+        cout << "║  📊 Stock: " << setw(19) << left << newItem.stock << "                                            ║\n";
         cout << "║                                                                                                  ║\n";
         cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
 
@@ -1906,7 +2003,7 @@ void calculateTaxAndCharges(Order &order)
 void configureTaxSettings()
 {
     cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("⚙️ TAX CONFIGURATION", 94) << "║\n";
+    cout << "║" << centerText("⚙️ TAX CONFIGURATION", 99) << "║\n";
     cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
     cout << "║" << leftAlign(" Current Settings:", 94) << "║\n";
 
@@ -1935,6 +2032,7 @@ void configureTaxSettings()
             int taxPercent = getIntInRange("➤ Tax rate: ", 0, 50);
             taxConfig.standardRate = taxPercent / 100.0;
             cout << "✅ Tax rate updated to " << taxPercent << "%\n";
+            saveTaxConfig(taxConfig, "tax_config.txt");
         }
         break;
     case 2:
@@ -1943,11 +2041,13 @@ void configureTaxSettings()
             int servicePercent = getIntInRange("➤ Service rate: ", 0, 20);
             taxConfig.serviceChargeRate = servicePercent / 100.0;
             cout << "✅ Service charge rate updated to " << servicePercent << "%\n";
+            saveTaxConfig(taxConfig, "tax_config.txt");
         }
         break;
     case 3:
         taxConfig.serviceChargeEnabled = !taxConfig.serviceChargeEnabled;
         cout << "✅ Service charge " << (taxConfig.serviceChargeEnabled ? "enabled" : "disabled") << "\n";
+        saveTaxConfig(taxConfig, "tax_config.txt");
         break;
     case 4:
         return;
@@ -1961,11 +2061,11 @@ void configureTaxSettings()
 void displayOffersAndPromotions()
 {
     clearScreen();
-    cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🎁 CURRENT OFFERS & PROMOTIONS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("💯 PERCENTAGE DISCOUNTS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "\n╔═══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
+    cout << "║" << centerText("🎁 CURRENT OFFERS & PROMOTIONS", 97) << "║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║" << centerText("💯 PERCENTAGE DISCOUNTS", 97) << "║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
 
     for (const auto &promo : promoCodes)
     {
@@ -1993,55 +2093,55 @@ void displayOffersAndPromotions()
              << "│ " << leftAlign(description, 58) << " ║\n";
     }
 
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("💰 FIXED AMOUNT DISCOUNTS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║" << centerText("💰 FIXED AMOUNT DISCOUNTS", 97) << "║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
 
     for (const auto &fixed : fixedDiscounts)
     {
         cout << "║ 💵  " << leftAlign(fixed.first + " - RM " + to_string((int)fixed.second.amount) + " OFF", 30)
-             << "│ " << leftAlign(fixed.second.description, 58) << " ║\n";
+             << "│ " << leftAlign(fixed.second.description, 58) << "║\n";
     }
 
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("🎯 AUTOMATIC DISCOUNTS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║" << centerText("🎯 AUTOMATIC DISCOUNTS", 97) << "║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
 
-    cout << "║ 🏆 TIERED DISCOUNTS (Applied automatically based on order total):                               ║\n";
+    cout << "║ 🏆 TIERED DISCOUNTS (Applied automatically based on order total):                             ║\n";
     for (const auto &tier : tieredDiscounts)
     {
-        cout << "║    • " << leftAlign(tier.description, 86) << " ║\n";
+        cout << "║    • " << leftAlign(tier.description, 89) << "║\n";
     }
 
-    cout << "║                                                                                                ║\n";
-    cout << "║ 🎪 COMBO DISCOUNTS (Applied when buying from multiple categories):                             ║\n";
+    cout << "║                                                                                               ║\n";
+    cout << "║ 🎪 COMBO DISCOUNTS (Applied when buying from multiple categories):                            ║\n";
     for (const auto &combo : comboDiscounts)
     {
-        cout << "║    • " << leftAlign(combo.description, 86) << " ║\n";
+        cout << "║    • " << leftAlign(combo.description, 89) << "║\n";
     }
 
-    cout << "║                                                                                                ║\n";
-    cout << "║ ⏰ TIME-BASED DISCOUNTS (Applied during specific hours):                                       ║\n";
+    cout << "║                                                                                               ║\n";
+    cout << "║ ⏰ TIME-BASED DISCOUNTS (Applied during specific hours):                                      ║\n";
     for (const auto &timeDeal : timeDiscounts)
     {
-        cout << "║    • " << leftAlign(timeDeal.description, 86) << " ║\n";
+        cout << "║    • " << leftAlign(timeDeal.description, 89) << "║\n";
     }
 
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("💡 HOW TO USE", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║ • Enter the promo code during checkout to apply discount                                     ║\n";
-    cout << "║ • Codes are case-insensitive (SAVE5 = save5 = Save5)                                        ║\n";
-    cout << "║ • Only one discount code can be applied per order                                            ║\n";
-    cout << "║ • Some offers may require minimum purchase amount                                            ║\n";
-    cout << "║ • Fixed discounts have maximum 95% off limit for order total                                ║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("ℹ️  Current Tax & Service Information", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║" << centerText("💡 HOW TO USE", 97) << "║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║ • Enter the promo code during checkout to apply discount                                      ║\n";
+    cout << "║ • Codes are case-insensitive (SAVE5 = save5 = Save5)                                          ║\n";
+    cout << "║ • Only one discount code can be applied per order                                             ║\n";
+    cout << "║ • Some offers may require minimum purchase amount                                             ║\n";
+    cout << "║ • Fixed discounts have maximum 95% off limit for order total                                  ║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║" << centerText("ℹ️  Current Tax & Service Information", 100) << "║\n";
+    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
     cout << "║ • Service Charge: " << (taxConfig.serviceChargeEnabled ? to_string((int)(taxConfig.serviceChargeRate * 100)) + "% (applied to subtotal)" : "Disabled") << string(52, ' ') << "║\n";
-    cout << "║ • Tax Rate: " << to_string((int)(taxConfig.standardRate * 100)) << "% (applied to subtotal + service charge)" << string(46, ' ') << "║\n";
-    cout << "║ • Discounts are applied to the final total (after tax & service charge)                     ║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "║ • Tax Rate: " << to_string((int)(taxConfig.standardRate * 100)) << "% (applied to subtotal + service charge)" << string(40, ' ') << "║\n";
+    cout << "║ • Discounts are applied to the final total (after tax & service charge)                       ║\n";
+    cout << "╚═══════════════════════════════════════════════════════════════════════════════════════════════╝\n";
 
     cout << "\n🔙 Press Enter to return to main menu...";
     cin.get();
@@ -2408,7 +2508,7 @@ bool isDiscountValid(const string &code, double orderTotal)
 void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
 {
     cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🎯 SMART DISCOUNT ANALYZER", 94) << "║\n";
+    cout << "║" << centerText("🎯 SMART DISCOUNT ANALYZER", 96) << "║\n";
     cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
 
     ostringstream currentTotalStr;
@@ -2443,7 +2543,7 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
         double timeAmount = order.total * timeRate;
         ostringstream timeAmountStr;
         timeAmountStr << "RM " << fixed << setprecision(2) << timeAmount;
-        cout << "║ ⏰ " << leftAlign("TIME SPECIAL: " + to_string((int)(timeRate * 100)) + "% off (" + timeAmountStr.str() + ")", 90) << " ║\n";
+        cout << "║ ⏰ " << leftAlign("TIME SPECIAL: " + to_string((int)(timeRate * 100)) + "% off (" + timeAmountStr.str() + ")", 90) << "║\n";
     }
 
     // Find the best automatic discount
@@ -2518,6 +2618,7 @@ int main()
     }
     loadCustomers(customers, "customer.txt");
     loadOrderHistory(orderHistory, "orders.txt");
+    loadTaxConfig(taxConfig, "tax_config.txt"); // Load tax configuration
     int customerId = 1;
 
     // Initialize navigation stack with main menu
@@ -2561,7 +2662,7 @@ int main()
                     cout << "║                                        ║\n";
                     cout << "║   📊   2. View Report                  ║\n";
                     cout << "║                                        ║\n";
-                    cout << "║   ⚙️   3. Tax Configuration            ║\n";
+                    cout << "║   ⚙️    3. Tax Configuration            ║\n";
                     cout << "║                                        ║\n";
                     cout << "║   🏠   4. Return to Main Menu          ║\n";
                     cout << "║                                        ║\n";
@@ -2609,6 +2710,7 @@ int main()
             cout << "Exiting program.\n";
             saveItems(catalog, "items.txt");
             saveOrderHistory(orderHistory, "orders.txt");
+            saveTaxConfig(taxConfig, "tax_config.txt");
             return 0;
         default:
             cout << "Invalid choice, try again.\n";
