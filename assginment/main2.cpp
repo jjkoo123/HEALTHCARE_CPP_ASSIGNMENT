@@ -264,8 +264,6 @@ void clearScreen()
     system("cls"); // Clear screen for Windows
 #elif defined(__APPLE__) || defined(__MACH__)
     system("clear"); // Clear screen for macOS
-#elif defined(__linux__)
-    system("clear"); // Clear screen for Linux
 #else
     // Fallback for other systems - use ANSI escape codes
     cout << "\033[2J\033[1;1H";
@@ -1496,7 +1494,7 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
 
     // Header for order details with improved spacing
     cout << "\n╔═══════╦══════════════════════╦══════════════════╦════════════════╦═══════════════╦══════════════════╗\n";
-    cout << "║  ID   ║      CUSTOMER        ║     STATUS       ║    PAYMENT     ║     TOTAL     ║      ITEMS       ║\n";
+    cout << "║  ID   ║      CUSTOMER        ║     STATUS       ║    PAYMENT     ║   DISCOUNT    ║      ITEMS       ║\n";
     cout << "╠═══════╬══════════════════════╬══════════════════╬════════════════╬═══════════════╬══════════════════╣\n";
 
     for (const auto &order : orders)
@@ -1582,7 +1580,7 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
                        ' ')
              << "                  ║\n";
         cout << "╠══════════════════════════════╦═══════╦════════════════╦═══════════════╦═══════════════════╦════════════════╣\n";
-        cout << "║         ITEM NAME            ║  QTY  ║     PRICE      ║   SUBTOTAL    ║     DISCOUNT      ║  ORDER TOTAL   ║\n";
+        cout << "║         ITEM NAME            ║  QTY  ║     PRICE      ║   SUBTOTAL    ║  DISCOUNT PRICE   ║  ORDER TOTAL   ║\n";
         cout << "╠══════════════════════════════╬═══════╬════════════════╬═══════════════╬═══════════════════╬════════════════╣\n";
 
         bool firstItem = true;
@@ -1602,28 +1600,13 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
                     totalStream << "RM " << fixed << setprecision(2) << order.total;
                     if (order.discountAmount > 0)
                     {
-                        if (!order.discountCode.empty())
-                        {
-                            string discountText = order.discountCode;
-                            if (order.discountType == "percentage")
-                            {
-                                discountText += " (" + to_string((int)(order.discountRate * 100)) + "%)";
-                            }
-                            // Truncate if too long to fit in column
-                            if (discountText.length() > 17)
-                            {
-                                discountText = discountText.substr(0, 14) + "...";
-                            }
-                            discountStream << discountText;
-                        }
-                        else
-                        {
-                            discountStream << "APPLIED";
-                        }
+                        ostringstream discountAmountStream;
+                        discountAmountStream << "RM " << fixed << setprecision(2) << order.discountAmount;
+                        discountStream << discountAmountStream.str();
                     }
                     else
                     {
-                        discountStream << "NO DISCOUNT";
+                        discountStream << "RM 0.00";
                     }
                     firstItem = false;
                 }
@@ -1646,20 +1629,20 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
 
         // Order Information Table
         cout << "║                                                                                                            ║\n";
-        cout << "╠═══════════════════════════════════╦═════════════════════════════════════════╦══════════════════════════════╣\n";
-        cout << "║" << centerText("💳 PAYMENT METHOD", 37) << "║" << centerText("🎁 DISCOUNT", 43) << "║" << centerText("📊 STATUS", 32) << "║\n";
-        cout << "╠═══════════════════════════════════╬═════════════════════════════════════════╬══════════════════════════════╣\n";
+        cout << "╠════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+        cout << "║" << centerText("💳 PAYMENT METHOD", 56) << "║" << centerText("📊 STATUS", 55) << "║\n";
+        cout << "╠════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
 
         // Prepare payment method display
         string paymentDisplay = order.paymentMethod.empty() ? "❓ Unknown" : "� " + order.paymentMethod;
-        if (paymentDisplay.length() > 33)
+        if (paymentDisplay.length() > 45)
         {
-            paymentDisplay = paymentDisplay.substr(0, 30) + "...";
+            paymentDisplay = paymentDisplay.substr(0, 45) + "...";
         }
 
         // Prepare discount display with consistent length
         string discountDisplay;
-        const int TARGET_LENGTH = 35; // Increased target length to accommodate longer codes
+        const int TARGET_LENGTH = 42; // Increased target length to accommodate longer codes
 
         if (order.discountAmount > 0)
         {
@@ -1709,8 +1692,8 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
             statusDisplay = "📋 " + order.status;
         }
 
-        cout << "║" << centerText(paymentDisplay, 37) << "║" << centerText(discountDisplay, 42) << "║" << centerText(statusDisplay, 31) << "║\n";
-        cout << "╚═══════════════════════════════════╩═════════════════════════════════════════╩══════════════════════════════╝\n";
+        cout << "║" << centerText(paymentDisplay, 56)  << "║" << centerText(statusDisplay, 54) << "║\n";
+        cout << "╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
     }
 
     // Summary section moved here - after detailed breakdown
