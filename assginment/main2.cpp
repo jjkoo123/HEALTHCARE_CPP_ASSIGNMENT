@@ -1692,7 +1692,7 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
             statusDisplay = "📋 " + order.status;
         }
 
-        cout << "║" << centerText(paymentDisplay, 56)  << "║" << centerText(statusDisplay, 54) << "║\n";
+        cout << "║" << centerText(paymentDisplay, 56) << "║" << centerText(statusDisplay, 54) << "║\n";
         cout << "╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
     }
 
