@@ -1,22 +1,8 @@
-1,LEE,1,2001:54;3002:22;,1300.00,0.00,0.00,1300.00,0.00,0.00,,,Completed,Cash,
-2,as,1,1001:12;,120.00,0.00,0.00,120.00,0.00,0.00,,,Completed,Cash,
-3,jianjun,2,2001:12;1002:12;,420.00,0.00,0.00,420.00,0.00,0.00,,,Completed,Cash,
-4,asd,1,1001:12;,120.00,0.00,0.00,120.00,0.00,0.00,,,Completed,Cash,
-5,qwd,1,1001:2;,20.00,0.00,0.00,20.00,0.00,0.00,,,Completed,Cash,
-6,asd,1,1001:1;,10.00,0.00,0.00,10.00,0.00,0.00,,,Completed,Cash,
-7,hi,1,1001:12;,120.00,0.00,0.00,120.00,0.00,0.00,,,Completed,Cash,
-8,asd,1,1001:1;,10.00,0.00,0.00,10.00,0.00,0.00,,,Completed,Cash,
-9,4,1,1001:1;,10.00,0.00,0.00,10.00,0.00,0.00,,,Completed,Cash,
-10,qwe,1,1001:1;,10.00,1.06,0.60,10.73,0.00,0.00,,,Completed,Cash,
-11,qwe,1,1001:1;,10.00,1.06,0.60,9.91,1.75,0.15,AUTO_TIME,automatic_time,Completed,Cash,
-12,qwe,1,1001:1;,10.00,1.06,0.60,9.91,1.75,0.15,AUTO_TIME,automatic_time,Completed,Cash,
-13,r,1,1001:1;,10.00,1.06,0.60,8.16,3.50,0.30,FLASH30,percentage,Completed,Cash,
-14,rq,1,1001:1;,10.00,1.06,0.60,11.66,0.00,0.00,,,Completed,Credit Card,ZX18442807
-15,tng,2,1001:2;,20.00,2.12,1.20,21.45,1.87,0.08,MEMBER,percentage,Completed,Touch n Go,ZX18522249
-17,qwe,2,1001:2;,20.00,2.12,1.20,21.45,1.87,0.08,MEMBER,percentage,Completed,Credit Card,ZX20277807
-18,qwe,1,1001:3;,30.00,3.00,0.00,30.00,3.00,0.00,NEWBIE,fixed,Completed,Touch n Go,ZX20679807
-19,rrrrrr,2,2001:6;,120.00,12.00,0.00,118.80,13.20,0.10,AUTO_TIER,automatic_tier,Completed,Credit Card,ZX20707249
-20,qse,1,1001:3;,30.00,3.18,1.80,34.98,0.00,0.00,,,Completed,Credit Card,ZX28662807
-21,qwe,1,1001:3;,30.00,3.18,1.80,30.78,4.20,0.12,AUTO_TIME,automatic_time,Completed,Credit Card,ZX31920807
-22,a,1,1001:100;,1000.00,232.00,160.00,1044.00,348.00,0.25,AUTO_TIER,automatic_tier,Completed,Credit Card,ZX61804807
-23,no discount,1,1001:3;,30.00,6.96,4.80,41.76,0.00,0.00,,,Completed,Touch n Go,ZX66476807
+1,tng,2,1001:2;,20.00,2.12,1.20,21.45,1.87,0.08,MEMBER,percentage,Completed,Touch n Go,ZX18522249
+2,qwe,2,1001:2;,20.00,2.12,1.20,21.45,1.87,0.08,MEMBER,percentage,Completed,Credit Card,ZX20277807
+3,qwe,1,1001:3;,30.00,3.00,0.00,30.00,3.00,0.00,NEWBIE,fixed,Completed,Touch n Go,ZX20679807
+4,rrrrrr,2,2001:6;,120.00,12.00,0.00,118.80,13.20,0.10,AUTO_TIER,automatic_tier,Completed,Credit Card,ZX20707249
+5,qse,1,1001:3;,30.00,3.18,1.80,34.98,0.00,0.00,,,Completed,Credit Card,ZX28662807
+6,qwe,1,1001:3;,30.00,3.18,1.80,30.78,4.20,0.12,AUTO_TIME,automatic_time,Completed,Credit Card,ZX31920807
+7,a,1,1001:100;,1000.00,232.00,160.00,1044.00,348.00,0.25,AUTO_TIER,automatic_tier,Completed,Credit Card,ZX61804807
+8,no discount,1,1001:3;,30.00,6.96,4.80,41.76,0.00,0.00,,,Completed,Touch n Go,ZX66476807
