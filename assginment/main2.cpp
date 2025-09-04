@@ -249,11 +249,11 @@ string createBoxLine(char left, char middle, char right, const vector<int> &widt
 
 string createDataLine(const vector<string> &data, const vector<int> &widths)
 {
-    string line = "║";
+    string line = "|";
     for (size_t i = 0; i < data.size() && i < widths.size(); i++)
     {
         line += centerText(data[i], widths[i]);
-        line += "║";
+        line += "|";
     }
     return line;
 }
@@ -310,7 +310,7 @@ int getIntInRange(const string &prompt, int min, int max)
         // Check if input is empty
         if (input.empty())
         {
-            cout << "❌ Input cannot be empty. Enter a number between " << min << " and " << max << ".\n";
+            cout << "ERROR: Input cannot be empty. Enter a number between " << min << " and " << max << ".\n";
             continue;
         }
 
@@ -329,7 +329,7 @@ int getIntInRange(const string &prompt, int min, int max)
 
         if (!isValid)
         {
-            cout << "❌ Invalid input. Please enter only numbers between " << min << " and " << max << ".\n";
+            cout << "ERROR: Invalid input. Please enter only numbers between " << min << " and " << max << ".\n";
             continue;
         }
 
@@ -343,12 +343,12 @@ int getIntInRange(const string &prompt, int min, int max)
             }
             else
             {
-                cout << "❌ Number out of range. Enter a number between " << min << " and " << max << ".\n";
+                cout << "ERROR: Number out of range. Enter a number between " << min << " and " << max << ".\n";
             }
         }
         catch (const exception &)
         {
-            cout << "❌ Invalid number. Enter a number between " << min << " and " << max << ".\n";
+            cout << "ERROR: Invalid number. Enter a number between " << min << " and " << max << ".\n";
         }
     }
 }
@@ -370,7 +370,7 @@ double getPositiveDouble(const string &prompt)
         // Check if input is empty
         if (input.empty())
         {
-            cout << "❌ Input cannot be empty. Please enter a positive number.\n";
+            cout << "ERROR: Input cannot be empty. Please enter a positive number.\n";
             continue;
         }
 
@@ -393,7 +393,7 @@ double getPositiveDouble(const string &prompt)
 
         if (!isValid)
         {
-            cout << "❌ Invalid input. Please enter only positive numbers (e.g., 12.50).\n";
+            cout << "ERROR: Invalid input. Please enter only positive numbers (e.g., 12.50).\n";
             continue;
         }
 
@@ -407,12 +407,12 @@ double getPositiveDouble(const string &prompt)
             }
             else
             {
-                cout << "❌ Please enter a positive number greater than 0.\n";
+                cout << "ERROR: Please enter a positive number greater than 0.\n";
             }
         }
         catch (const exception &)
         {
-            cout << "❌ Invalid number format. Please enter a positive number.\n";
+            cout << "ERROR: Invalid number format. Please enter a positive number.\n";
         }
     }
 }
@@ -433,7 +433,7 @@ int getPositiveInt(const string &prompt)
         // Check if input is empty
         if (input.empty())
         {
-            cout << "❌ Input cannot be empty. Please enter a positive integer.\n";
+            cout << "ERROR: Input cannot be empty. Please enter a positive integer.\n";
             continue;
         }
 
@@ -450,7 +450,7 @@ int getPositiveInt(const string &prompt)
 
         if (!isValid)
         {
-            cout << "❌ Invalid input. Please enter only positive integers (e.g., 1, 2, 3).\n";
+            cout << "ERROR: Invalid input. Please enter only positive integers (e.g., 1, 2, 3).\n";
             continue;
         }
 
@@ -464,12 +464,12 @@ int getPositiveInt(const string &prompt)
             }
             else
             {
-                cout << "❌ Please enter a positive integer greater than 0.\n";
+                cout << "ERROR: Please enter a positive integer greater than 0.\n";
             }
         }
         catch (const exception &)
         {
-            cout << "❌ Invalid integer. Please enter a positive integer.\n";
+            cout << "ERROR: Invalid integer. Please enter a positive integer.\n";
         }
     }
 }
@@ -523,39 +523,39 @@ string getLimitedInput(const string &prompt, int maxLength, const string &fieldN
 int display_MainMenu()
 {
     cout << "\n";
-    cout << "╔════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🏪 MAIN MENU", 42) << "║\n";
-    cout << "╠════════════════════════════════════════╣\n";
-    cout << "║                                        ║\n";
-    cout << "║   🛒   1. Order Entry                  ║\n";
-    cout << "║                                        ║\n";
-    cout << "║   🎁   2. View Offers & Discounts      ║\n";
-    cout << "║                                        ║\n";
-    cout << "║   👨   3. Staff Entry                  ║\n";
-    cout << "║                                        ║\n";
-    cout << "║   🚪   4. Exit System                  ║\n";
-    cout << "║                                        ║\n";
-    cout << "╚════════════════════════════════════════╝\n";
-    cout << "┌────────────────────────────────────────┐\n";
-    cout << "│" << centerText("Please select an option (1-4):", 40) << "│\n";
-    cout << "└────────────────────────────────────────┘\n";
-    return getIntInRange("➤ Your choice: ", 1, 4);
+    cout << "+========================================+\n";
+    cout << "|" << centerText("MAIN MENU", 42) << "|\n";
+    cout << "+========================================+\n";
+    cout << "|                                        |\n";
+    cout << "|   1. Order Entry                       |\n";
+    cout << "|                                        |\n";
+    cout << "|   2. View Offers & Discounts           |\n";
+    cout << "|                                        |\n";
+    cout << "|   3. Staff Entry                       |\n";
+    cout << "|                                        |\n";
+    cout << "|   4. Exit System                       |\n";
+    cout << "|                                        |\n";
+    cout << "+========================================+\n";
+    cout << "+----------------------------------------+\n";
+    cout << "|" << centerText("Please select an option (1-4):", 40) << "|\n";
+    cout << "+----------------------------------------+\n";
+    return getIntInRange("> Your choice: ", 1, 4);
 }
 
 void displayItems(const vector<item> &items)
 {
     clearScreen();
     cout << "\n";
-    cout << "╔════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🛍️  PRODUCT CATALOG", 98) << "║\n";
-    cout << "╠═══════════════════════════╦══════════╦═══════════════════════════╦══════════════╦══════════╣\n";
-    cout << "║" << centerText("CATEGORIES", 27) << "║" << centerText("ID", 10) << "║" << centerText("ITEM NAME", 27) << "║" << centerText("PRICE", 14) << "║" << centerText("STOCK", 10) << "║\n";
-    cout << "╠═══════════════════════════╬══════════╬═══════════════════════════╬══════════════╬══════════╣\n";
+    cout << "+============================================================================================+\n";
+    cout << "|" << centerText("PRODUCT CATALOG", 98) << "|\n";
+    cout << "+===========================+==========+===========================+==============+==========+\n";
+    cout << "|" << centerText("CATEGORIES", 27) << "|" << centerText("ID", 10) << "|" << centerText("ITEM NAME", 27) << "|" << centerText("PRICE", 14) << "|" << centerText("STOCK", 10) << "|\n";
+    cout << "+===========================+==========+===========================+==============+==========+\n";
 
     if (items.empty())
     {
-        cout << "║" << centerText("📦 No items available", 91) << "║\n";
-        cout << "╚═══════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "|" << centerText("ITEM: No items available", 91) << "|\n";
+        cout << "+===========================================================================================+\n";
         return;
     }
 
@@ -569,11 +569,11 @@ void displayItems(const vector<item> &items)
         string stockStatus = to_string(item.stock);
         if (item.stock == 0)
         {
-            stockStatus = "❌ OUT";
+            stockStatus = "ERROR: OUT";
         }
         else if (item.stock < 5)
         {
-            stockStatus = "⚠️ " + stockStatus + " LOW";
+            stockStatus = "WARNING: " + stockStatus + " LOW";
         }
         else if (item.stock < 10)
         {
@@ -581,17 +581,17 @@ void displayItems(const vector<item> &items)
         }
         else
         {
-            stockStatus = "✅ " + stockStatus;
+            stockStatus = "SUCCESS: " + stockStatus;
         }
 
-        cout << "║" << centerText(item.category, 27)
-             << "║" << centerText(to_string(item.code), 10)
-             << "║" << centerText(item.name, 27)
-             << "║" << centerText(priceStr, 14)
-             << "║" << centerText(stockStatus, 11)
-             << "║\n";
+        cout << "|" << centerText(item.category, 27)
+             << "|" << centerText(to_string(item.code), 10)
+             << "|" << centerText(item.name, 27)
+             << "|" << centerText(priceStr, 14)
+             << "|" << centerText(stockStatus, 11)
+             << "|\n";
     }
-    cout << "╚═══════════════════════════╩══════════╩═══════════════════════════╩══════════════╩══════════╝\n";
+    cout << "+===========================+==========+===========================+==============+==========+\n";
 }
 
 int getItemID(const vector<item> &items)
@@ -626,7 +626,7 @@ int getQuantity()
     int quantity;
     while (true)
     {
-        cout << "📦 Enter the quantity: ";
+        cout << "ITEM: Enter the quantity: ";
         if (cin >> quantity && quantity > 0 && quantity <= 100) // reasonable limit
         {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -636,11 +636,11 @@ int getQuantity()
         {
             if (quantity > 100)
             {
-                cout << "❌ Quantity too large. Maximum 100 items per order.\n";
+                cout << "ERROR: Quantity too large. Maximum 100 items per order.\n";
             }
             else
             {
-                cout << "❌ Invalid quantity. Please enter a positive number (1-100).\n";
+                cout << "ERROR: Invalid quantity. Please enter a positive number (1-100).\n";
             }
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -663,14 +663,14 @@ char getYesNo()
         // Check if input is empty
         if (input.empty())
         {
-            cout << "❌ Input cannot be empty. Please enter 'Y' or 'N': ";
+            cout << "ERROR: Input cannot be empty. Please enter 'Y' or 'N': ";
             continue;
         }
 
         // Check if input is exactly one character
         if (input.length() != 1)
         {
-            cout << "❌ Please enter only one character (Y or N): ";
+            cout << "ERROR: Please enter only one character (Y or N): ";
             continue;
         }
 
@@ -681,7 +681,7 @@ char getYesNo()
         }
         else
         {
-            cout << "❌ Invalid input. Please enter only 'Y' or 'N': ";
+            cout << "ERROR: Invalid input. Please enter only 'Y' or 'N': ";
         }
     }
 }
@@ -702,14 +702,14 @@ char getCharChoice(const string &prompt, const string &validChars)
         // Check if input is empty
         if (input.empty())
         {
-            cout << "❌ Input cannot be empty. Please enter one of: " << validChars << "\n";
+            cout << "ERROR: Input cannot be empty. Please enter one of: " << validChars << "\n";
             continue;
         }
 
         // Check if input is exactly one character
         if (input.length() != 1)
         {
-            cout << "❌ Please enter only one character from: " << validChars << "\n";
+            cout << "ERROR: Please enter only one character from: " << validChars << "\n";
             continue;
         }
 
@@ -725,7 +725,7 @@ char getCharChoice(const string &prompt, const string &validChars)
         }
         else
         {
-            cout << "❌ Invalid choice. Please enter one of: " << validChars << "\n";
+            cout << "ERROR: Invalid choice. Please enter one of: " << validChars << "\n";
         }
     }
 }
@@ -753,7 +753,7 @@ void saveItems(const vector<item> &items, const string &filename)
     ofstream fout(filename);
     if (!fout.is_open())
     {
-        cout << "⚠️  Error: Could not save to " << filename << ". Check file permissions.\n";
+        cout << "WARNING:  Error: Could not save to " << filename << ". Check file permissions.\n";
         return;
     }
 
@@ -764,11 +764,11 @@ void saveItems(const vector<item> &items, const string &filename)
 
     if (fout.good())
     {
-        cout << "✅ Data saved successfully to " << filename << "\n";
+        cout << "SUCCESS: Data saved successfully to " << filename << "\n";
     }
     else
     {
-        cout << "⚠️  Warning: There may have been an error saving to " << filename << "\n";
+        cout << "WARNING:  Warning: There may have been an error saving to " << filename << "\n";
     }
     fout.close();
 }
@@ -813,7 +813,7 @@ void saveTaxConfig(const TaxConfig &config, const string &filename)
     ofstream fout(filename);
     if (!fout.is_open())
     {
-        cout << "⚠️  Warning: Could not save tax configuration to " << filename << "\n";
+        cout << "WARNING:  Warning: Could not save tax configuration to " << filename << "\n";
         return;
     }
 
@@ -824,11 +824,11 @@ void saveTaxConfig(const TaxConfig &config, const string &filename)
 
     if (fout.good())
     {
-        cout << "✅ Tax configuration saved successfully to " << filename << "\n";
+        cout << "SUCCESS: Tax configuration saved successfully to " << filename << "\n";
     }
     else
     {
-        cout << "⚠️  Warning: There may have been an error saving tax configuration to " << filename << "\n";
+        cout << "WARNING:  Warning: There may have been an error saving tax configuration to " << filename << "\n";
     }
     fout.close();
 }
@@ -838,7 +838,7 @@ void loadTaxConfig(TaxConfig &config, const string &filename)
     ifstream fin(filename);
     if (!fin.is_open())
     {
-        cout << "ℹ️  No existing tax configuration found. Using default settings.\n";
+        cout << "INFO:  No existing tax configuration found. Using default settings.\n";
         return;
     }
 
@@ -863,11 +863,11 @@ void loadTaxConfig(TaxConfig &config, const string &filename)
             config.serviceChargeRate = stod(line);
         }
 
-        cout << "✅ Tax configuration loaded successfully from " << filename << "\n";
+        cout << "SUCCESS: Tax configuration loaded successfully from " << filename << "\n";
     }
     catch (...)
     {
-        cout << "⚠️  Error reading tax configuration. Using default settings.\n";
+        cout << "WARNING:  Error reading tax configuration. Using default settings.\n";
         // Reset to default values
         config.standardRate = 0.10;
         config.serviceChargeEnabled = true;
@@ -1111,7 +1111,7 @@ void addToCart(vector<pair<int, int>> &cart, vector<item> &catalog)
         }
     }
 
-    cout << "✅ " << quantity << "x " << itemName << " added to cart successfully!\n";
+    cout << "SUCCESS: " << quantity << "x " << itemName << " added to cart successfully!\n";
     cout << "Press Enter to continue...";
     cin.get();
     // Refresh display to show current cart state
@@ -1123,19 +1123,19 @@ double viewCart(const vector<pair<int, int>> &cart, const vector<item> &items)
     clearScreen();
     double subtotal = 0.0;
     cout << "\n";
-    cout << "╔════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🛒 SHOPPING CART", 78) << "║\n";
-    cout << "╠═══════════════════════════╦══════════╦══════════════╦══════════════════════╣\n";
-    cout << "║" << centerText("ITEM", 27) << "║" << centerText("QTY", 10) << "║" << centerText("PRICE", 14) << "║" << centerText("SUBTOTAL", 22) << "║\n";
-    cout << "╠═══════════════════════════╬══════════╬══════════════╬══════════════════════╣\n";
+    cout << "+============================================================================+\n";
+    cout << "|" << centerText("[1] SHOPPING CART", 78) << "|\n";
+    cout << "+===========================+==========+==============+======================+\n";
+    cout << "|" << centerText("ITEM", 27) << "|" << centerText("QTY", 10) << "|" << centerText("PRICE", 14) << "|" << centerText("SUBTOTAL", 22) << "|\n";
+    cout << "+===========================+==========+==============+======================+\n";
 
     if (cart.empty())
     {
-        cout << "║" << centerText("", 82) << "║\n";
-        cout << "║" << centerText("🛒 Your cart is empty", 82) << "║\n";
-        cout << "║" << centerText("Please add items to continue", 82) << "║\n";
-        cout << "║" << centerText("", 82) << "║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "|" << centerText("", 82) << "|\n";
+        cout << "|" << centerText("[1] Your cart is empty", 82) << "|\n";
+        cout << "|" << centerText("Please add items to continue", 82) << "|\n";
+        cout << "|" << centerText("", 82) << "|\n";
+        cout << "+==================================================================================+\n";
         return 0.0;
     }
 
@@ -1149,18 +1149,18 @@ double viewCart(const vector<pair<int, int>> &cart, const vector<item> &items)
         priceStream << "RM " << fixed << setprecision(2) << items[index].price;
         subtotalStream << "RM " << fixed << setprecision(2) << lineTotal;
 
-        cout << "║" << centerText(items[index].name, 27)
-             << "║" << centerText(to_string(pair.second), 10)
-             << "║" << centerText(priceStream.str(), 14)
-             << "║" << centerText(subtotalStream.str(), 22)
-             << "║\n";
+        cout << "|" << centerText(items[index].name, 27)
+             << "|" << centerText(to_string(pair.second), 10)
+             << "|" << centerText(priceStream.str(), 14)
+             << "|" << centerText(subtotalStream.str(), 22)
+             << "|\n";
     }
-    cout << "╠═══════════════════════════╩══════════╩══════════════╬══════════════════════╣\n";
+    cout << "+===========================+==========+==============+======================+\n";
 
     ostringstream subtotalStr;
     subtotalStr << "RM " << fixed << setprecision(2) << subtotal;
-    cout << "║" << rightAlign("SUBTOTAL:", 53) << "║" << centerText(subtotalStr.str(), 22) << "║\n";
-    cout << "╚═════════════════════════════════════════════════════╩══════════════════════╝\n";
+    cout << "|" << rightAlign("SUBTOTAL:", 53) << "|" << centerText(subtotalStr.str(), 22) << "|\n";
+    cout << "+=====================================================+======================+\n";
     return subtotal;
 }
 
@@ -1168,19 +1168,19 @@ void viewCartWithOrder(const Order &order, const vector<item> &items)
 {
     clearScreen();
     cout << "\n";
-    cout << "╔════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🛒 SHOPPING CART", 78) << "║\n";
-    cout << "╠═══════════════════════════╦══════════╦══════════════╦══════════════════════╣\n";
-    cout << "║" << centerText("ITEM", 27) << "║" << centerText("QTY", 10) << "║" << centerText("PRICE", 14) << "║" << centerText("SUBTOTAL", 22) << "║\n";
-    cout << "╠═══════════════════════════╬══════════╬══════════════╬══════════════════════╣\n";
+    cout << "+============================================================================+\n";
+    cout << "|" << centerText("[1] SHOPPING CART", 78) << "|\n";
+    cout << "+===========================+==========+==============+======================+\n";
+    cout << "|" << centerText("ITEM", 27) << "|" << centerText("QTY", 10) << "|" << centerText("PRICE", 14) << "|" << centerText("SUBTOTAL", 22) << "|\n";
+    cout << "+===========================+==========+==============+======================+\n";
 
     if (order.items.empty())
     {
-        cout << "║" << centerText("", 82) << "║\n";
-        cout << "║" << centerText("🛒 Your cart is empty", 82) << "║\n";
-        cout << "║" << centerText("Please add items to continue", 82) << "║\n";
-        cout << "║" << centerText("", 82) << "║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "|" << centerText("", 82) << "|\n";
+        cout << "|" << centerText("[1] Your cart is empty", 82) << "|\n";
+        cout << "|" << centerText("Please add items to continue", 82) << "|\n";
+        cout << "|" << centerText("", 82) << "|\n";
+        cout << "+==================================================================================+\n";
         return;
     }
 
@@ -1193,26 +1193,26 @@ void viewCartWithOrder(const Order &order, const vector<item> &items)
         priceStream << "RM " << fixed << setprecision(2) << items[index].price;
         subtotalStream << "RM " << fixed << setprecision(2) << lineTotal;
 
-        cout << "║" << centerText(items[index].name, 27)
-             << "║" << centerText(to_string(pair.second), 10)
-             << "║" << centerText(priceStream.str(), 14)
-             << "║" << centerText(subtotalStream.str(), 22)
-             << "║\n";
+        cout << "|" << centerText(items[index].name, 27)
+             << "|" << centerText(to_string(pair.second), 10)
+             << "|" << centerText(priceStream.str(), 14)
+             << "|" << centerText(subtotalStream.str(), 22)
+             << "|\n";
     }
-    cout << "╠═══════════════════════════╩══════════╩══════════════╬══════════════════════╣\n";
+    cout << "+===========================+==========+==============+======================+\n";
 
     // Show subtotal
     ostringstream subtotalStr;
     subtotalStr << "RM " << fixed << setprecision(2) << order.subtotal;
-    cout << "║" << rightAlign("SUBTOTAL:", 53) << "║" << centerText(subtotalStr.str(), 22) << "║\n";
+    cout << "|" << rightAlign("SUBTOTAL:", 53) << "|" << centerText(subtotalStr.str(), 22) << "|\n";
 
     // Show service charge if enabled
     if (taxConfig.serviceChargeEnabled && order.serviceCharge > 0)
     {
         ostringstream serviceStr;
         serviceStr << "RM " << fixed << setprecision(2) << order.serviceCharge;
-        cout << "║" << rightAlign("Service Charge (" + to_string((int)(taxConfig.serviceChargeRate * 100)) + "%):", 53)
-             << "║" << centerText(serviceStr.str(), 22) << "║\n";
+        cout << "|" << rightAlign("Service Charge (" + to_string((int)(taxConfig.serviceChargeRate * 100)) + "%):", 53)
+             << "|" << centerText(serviceStr.str(), 22) << "|\n";
     }
 
     // Show tax
@@ -1220,8 +1220,8 @@ void viewCartWithOrder(const Order &order, const vector<item> &items)
     {
         ostringstream taxStr;
         taxStr << "RM " << fixed << setprecision(2) << order.tax;
-        cout << "║" << rightAlign("Tax (" + to_string((int)(taxConfig.standardRate * 100)) + "%):", 53)
-             << "║" << centerText(taxStr.str(), 22) << "║\n";
+        cout << "|" << rightAlign("Tax (" + to_string((int)(taxConfig.standardRate * 100)) + "%):", 53)
+             << "|" << centerText(taxStr.str(), 22) << "|\n";
     }
 
     // Show discount if applied
@@ -1243,38 +1243,38 @@ void viewCartWithOrder(const Order &order, const vector<item> &items)
         {
             discountLabel += ":";
         }
-        cout << "║" << rightAlign(discountLabel, 53) << "║" << centerText(discountStr.str(), 22) << "║\n";
+        cout << "|" << rightAlign(discountLabel, 53) << "|" << centerText(discountStr.str(), 22) << "|\n";
     }
 
-    cout << "╠═════════════════════════════════════════════════════╬══════════════════════╣\n";
+    cout << "+=====================================================+======================+\n";
 
     // Show total
     ostringstream totalStr;
     totalStr << "RM " << fixed << setprecision(2) << order.total;
-    cout << "║" << rightAlign("TOTAL:", 53) << "║" << centerText(totalStr.str(), 22) << "║\n";
-    cout << "╚═════════════════════════════════════════════════════╩══════════════════════╝\n";
+    cout << "|" << rightAlign("TOTAL:", 53) << "|" << centerText(totalStr.str(), 22) << "|\n";
+    cout << "+=====================================================+======================+\n";
 }
 
 void generateInvoice(const Order &order, const vector<item> &items)
 {
     clearScreen();
     cout << "\n";
-    cout << "╔════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🧾 INVOICE", 98) << "║\n";
-    cout << "╠════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("", 96) << "║\n";
-    cout << "║" << leftAlign("  Invoice #: " + to_string(order.orderId), 96) << "║\n";
-    cout << "║" << leftAlign("  Customer:  " + order.customer.name, 96) << "║\n";
+    cout << "+================================================================================================+\n";
+    cout << "|" << centerText("INVOICE", 98) << "|\n";
+    cout << "+================================================================================================+\n";
+    cout << "|" << centerText("", 96) << "|\n";
+    cout << "|" << leftAlign("  Invoice #: " + to_string(order.orderId), 96) << "|\n";
+    cout << "|" << leftAlign("  Customer:  " + order.customer.name, 96) << "|\n";
 
     if (!order.transactionId.empty())
     {
-        cout << "║" << leftAlign("  Transaction: " + order.transactionId, 96) << "║\n";
+        cout << "|" << leftAlign("  Transaction: " + order.transactionId, 96) << "|\n";
     }
 
-    cout << "║" << centerText("", 96) << "║\n";
-    cout << "╠═══════════════════════════════════╦══════════╦══════════════╦══════════════════════════════════╣\n";
-    cout << "║              ITEM                 ║   QTY    ║    PRICE     ║            SUBTOTAL              ║\n";
-    cout << "╠═══════════════════════════════════╬══════════╬══════════════╬══════════════════════════════════╣\n";
+    cout << "|" << centerText("", 96) << "|\n";
+    cout << "+===================================+==========+==============+==================================+\n";
+    cout << "|              ITEM                 |   QTY    |    PRICE     |            SUBTOTAL              |\n";
+    cout << "+===================================+==========+==============+==================================+\n";
 
     for (const auto &pair : order.items)
     {
@@ -1287,16 +1287,16 @@ void generateInvoice(const Order &order, const vector<item> &items)
             priceStream << "RM " << fixed << setprecision(2) << items[index].price;
             lineTotalStream << "RM " << fixed << setprecision(2) << lineTotal;
 
-            cout << "║" << centerText(items[index].name, 35)
-                 << "║" << centerText(to_string(pair.second), 10)
-                 << "║" << centerText(priceStream.str(), 14)
-                 << "║" << centerText(lineTotalStream.str(), 34)
-                 << "║\n";
+            cout << "|" << centerText(items[index].name, 35)
+                 << "|" << centerText(to_string(pair.second), 10)
+                 << "|" << centerText(priceStream.str(), 14)
+                 << "|" << centerText(lineTotalStream.str(), 34)
+                 << "|\n";
         }
     }
 
-    cout << "╠═══════════════════════════════════╩══════════╩══════════════╬══════════════════════════════════╣\n";
-    cout << "║                                                             ║                                  ║\n";
+    cout << "+===================================+==========+==============+==================================+\n";
+    cout << "|                                                             |                                  |\n";
 
     // Create properly formatted strings for the breakdown
     ostringstream subtotalStr, serviceStr, taxStr, totalStr;
@@ -1305,20 +1305,20 @@ void generateInvoice(const Order &order, const vector<item> &items)
     taxStr << "RM " << fixed << setprecision(2) << order.tax;
     totalStr << "RM " << fixed << setprecision(2) << order.total;
 
-    cout << "║" << rightAlign("Subtotal:", 61) << "║" << centerText(subtotalStr.str(), 34) << "║\n";
+    cout << "|" << rightAlign("Subtotal:", 61) << "|" << centerText(subtotalStr.str(), 34) << "|\n";
 
     // Show service charge with rate
     if (taxConfig.serviceChargeEnabled && order.serviceCharge > 0)
     {
         string serviceLabel = "Service Charge (" + to_string((int)(taxConfig.serviceChargeRate * 100)) + "%):";
-        cout << "║" << rightAlign(serviceLabel, 61) << "║" << centerText(serviceStr.str(), 34) << "║\n";
+        cout << "|" << rightAlign(serviceLabel, 61) << "|" << centerText(serviceStr.str(), 34) << "|\n";
     }
 
     // Show tax with rate
     if (order.tax > 0)
     {
         string taxLabel = "Tax (" + to_string((int)(taxConfig.standardRate * 100)) + "%):";
-        cout << "║" << rightAlign(taxLabel, 61) << "║" << centerText(taxStr.str(), 34) << "║\n";
+        cout << "|" << rightAlign(taxLabel, 61) << "|" << centerText(taxStr.str(), 34) << "|\n";
     }
 
     // Show discount if applied
@@ -1340,25 +1340,25 @@ void generateInvoice(const Order &order, const vector<item> &items)
         {
             discountLabel += ":";
         }
-        cout << "║" << rightAlign(discountLabel, 61) << "║" << centerText(discountStr.str(), 34) << "║\n";
+        cout << "|" << rightAlign(discountLabel, 61) << "|" << centerText(discountStr.str(), 34) << "|\n";
     }
 
-    cout << "║                                                             ║                                  ║\n";
-    cout << "╠═════════════════════════════════════════════════════════════╬══════════════════════════════════╣\n";
-    cout << "║" << rightAlign("TOTAL:", 61) << "║" << centerText(totalStr.str(), 34) << "║\n";
-    cout << "╠═════════════════════════════════════════════════════════════╩══════════════════════════════════╣\n";
-    cout << "║                                                                                                ║\n";
+    cout << "|                                                             |                                  |\n";
+    cout << "+=============================================================+==================================+\n";
+    cout << "|" << rightAlign("TOTAL:", 61) << "|" << centerText(totalStr.str(), 34) << "|\n";
+    cout << "+=============================================================+==================================+\n";
+    cout << "|                                                                                                |\n";
 
     if (!order.paymentMethod.empty())
     {
-        cout << "║" << leftAlign("  Payment Method: " + order.paymentMethod, 96) << "║\n";
+        cout << "|" << leftAlign("  Payment Method: " + order.paymentMethod, 96) << "|\n";
     }
 
-    cout << "║" << leftAlign("  Status: " + order.status, 96) << "║\n";
-    cout << "║                                                                                                ║\n";
-    cout << "║" << centerText("🎉 Thank you for your business! 🎉", 100) << "║\n";
-    cout << "║                                                                                                ║\n";
-    cout << "╚════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "|" << leftAlign("  Status: " + order.status, 96) << "|\n";
+    cout << "|                                                                                                |\n";
+    cout << "|" << centerText("🎉 Thank you for your business! 🎉", 100) << "|\n";
+    cout << "|                                                                                                |\n";
+    cout << "+================================================================================================+\n";
 
     cout << "\nPress Enter to continue...";
     cin.get();
@@ -1370,46 +1370,46 @@ bool processPayment(double amount, string &method, string &transactionId)
     while (true)
     {
         cout << "\n";
-        cout << "╔══════════════════════════════════════════════════════╗\n";
-        cout << "║" << centerText("💳 PAYMENT GATEWAY", 56) << "║\n";
-        cout << "╠══════════════════════════════════════════════════════╣\n";
-        cout << "║                                                      ║\n";
+        cout << "+======================================================+\n";
+        cout << "|" << centerText("PAYMENT GATEWAY", 56) << "|\n";
+        cout << "+======================================================+\n";
+        cout << "|                                                      |\n";
 
         ostringstream amountStr;
         amountStr << "Total Amount: RM " << fixed << setprecision(2) << amount;
-        cout << "║" << centerText(amountStr.str(), 54) << "║\n";
-        cout << "║                                                      ║\n";
-        cout << "╠══════════════════════════════════════════════════════╣\n";
-        cout << "║   [A] 💳 Credit Card                                 ║\n";
-        cout << "║                                                      ║\n";
-        cout << "║   [S] 💵 Cash Payment                                ║\n";
-        cout << "║                                                      ║\n";
-        cout << "║   [D] 📱 Touch n Go (eWallet)                        ║\n";
-        cout << "║                                                      ║\n";
-        cout << "║   [Q] ❌ Cancel Payment                              ║\n";
-        cout << "║                                                      ║\n";
-        cout << "╚══════════════════════════════════════════════════════╝\n";
-        choice = getCharChoice("➤ Enter your choice: ", "ASDQ");
+        cout << "|" << centerText(amountStr.str(), 54) << "|\n";
+        cout << "|                                                      |\n";
+        cout << "+======================================================+\n";
+        cout << "|   [A] Credit Card                                    |\n";
+        cout << "|                                                      |\n";
+        cout << "|   [S] Cash Payment                                   |\n";
+        cout << "|                                                      |\n";
+        cout << "|   [D] Touch n Go (eWallet)                           |\n";
+        cout << "|                                                      |\n";
+        cout << "|   [Q] Cancel Payment                                 |\n";
+        cout << "|                                                      |\n";
+        cout << "+======================================================+\n";
+        choice = getCharChoice("> Enter your choice: ", "ASDQ");
 
         switch (choice)
         {
         case 'a':
             method = "Credit Card";
-            cout << "\n💳 Processing Credit Card payment...\n";
+            cout << "\nProcessing Credit Card payment...\n";
             break;
         case 's':
             method = "Cash";
-            cout << "\n💵 Processing Cash payment...\n";
+            cout << "\nProcessing Cash payment...\n";
             break;
         case 'd':
             method = "Touch n Go";
-            cout << "\n📱 Processing Touch 'n Go payment...\n";
+            cout << "\nProcessing Touch 'n Go payment...\n";
             break;
         case 'q':
-            cout << "\n❌ Payment cancelled by user.\n";
+            cout << "\nPayment cancelled by user.\n";
             return false;
         default:
-            cout << "❌ Invalid input. Please select A, S, D, or Q.\n";
+            cout << "ERROR: Invalid input. Please select A, S, D, or Q.\n";
             continue;
         }
         break;
@@ -1420,18 +1420,18 @@ bool processPayment(double amount, string &method, string &transactionId)
     transactionId = "ZX" + to_string(now % 100000) + to_string(rand() % 1000);
 
     // Simulate processing time and show success
-    cout << "\n⏳ Processing payment...\n";
-    cout << "╔══════════════════════════════════════════════════════╗\n";
-    cout << "║                  ✅ PAYMENT SUCCESS                  ║\n";
-    cout << "╠══════════════════════════════════════════════════════╣\n";
-    cout << "║                                                      ║\n";
-    cout << "║   Amount:        RM " << fixed << setprecision(2) << setw(31) << left << amount << " ║\n";
-    cout << "║   Method:        " << setw(35) << left << method << " ║\n";
-    cout << "║   Transaction:   " << setw(35) << left << transactionId << " ║\n";
-    cout << "║                                                      ║\n";
-    cout << "║          Thank you for your payment! 🎉              ║\n";
-    cout << "║                                                      ║\n";
-    cout << "╚══════════════════════════════════════════════════════╝\n";
+    cout << "\nProcessing payment...\n";
+    cout << "+======================================================+\n";
+    cout << "|                  PAYMENT SUCCESS                    |\n";
+    cout << "+======================================================+\n";
+    cout << "|                                                      |\n";
+    cout << "|   Amount:        RM " << fixed << setprecision(2) << setw(31) << left << amount << " |\n";
+    cout << "|   Method:        " << setw(35) << left << method << " |\n";
+    cout << "|   Transaction:   " << setw(35) << left << transactionId << " |\n";
+    cout << "|                                                      |\n";
+    cout << "|          Thank you for your payment! 🎉              |\n";
+    cout << "|                                                      |\n";
+    cout << "+======================================================+\n";
     return true;
 }
 
@@ -1439,32 +1439,32 @@ void generateReceipt(const Order &order)
 {
     clearScreen();
     cout << "\n";
-    cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🧾 PAYMENT RECEIPT", 100) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("", 98) << "║\n";
-    cout << "║" << centerText("✅ PAYMENT SUCCESSFUL", 99) << "║\n";
-    cout << "║" << centerText("", 98) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("", 98) << "║\n";
-    cout << "║" << leftAlign("  📋 Order ID:        " + to_string(order.orderId), 100) << "║\n";
-    cout << "║" << leftAlign("  👤 Customer:        " + order.customer.name, 100) << "║\n";
-    cout << "║" << leftAlign("  💳 Payment Method:  " + order.paymentMethod, 100) << "║\n";
-    cout << "║" << leftAlign("  🆔 Transaction ID:  " + order.transactionId, 100) << "║\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|" << centerText("PAYMENT RECEIPT", 100) << "|\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|" << centerText("", 98) << "|\n";
+    cout << "|" << centerText("PAYMENT SUCCESSFUL", 99) << "|\n";
+    cout << "|" << centerText("", 98) << "|\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|" << centerText("", 98) << "|\n";
+    cout << "|" << leftAlign("  Order ID:        " + to_string(order.orderId), 100) << "|\n";
+    cout << "|" << leftAlign("  👤 Customer:        " + order.customer.name, 100) << "|\n";
+    cout << "|" << leftAlign("  [A] Payment Method:  " + order.paymentMethod, 100) << "|\n";
+    cout << "|" << leftAlign("  🆔 Transaction ID:  " + order.transactionId, 100) << "|\n";
 
     ostringstream amountStr;
     amountStr << "RM " << fixed << setprecision(2) << order.total;
-    cout << "║" << leftAlign("  💰 Amount Paid:     " + amountStr.str(), 100) << "║\n";
-    cout << "║" << leftAlign("  📅 Date:            " + string(__DATE__), 100) << "║\n";
-    cout << "║" << leftAlign("  🕐 Time:            " + string(__TIME__), 100) << "║\n";
-    cout << "║" << centerText("", 98) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("", 98) << "║\n";
-    cout << "║" << centerText("🎉 Thank you for your purchase! 🎉", 102) << "║\n";
-    cout << "║" << centerText("Your order is being processed", 98) << "║\n";
-    cout << "║" << centerText("Have a wonderful day!", 98) << "║\n";
-    cout << "║" << centerText("", 98) << "║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "|" << leftAlign("  PRICE: Amount Paid:     " + amountStr.str(), 100) << "|\n";
+    cout << "|" << leftAlign("  📅 Date:            " + string(__DATE__), 100) << "|\n";
+    cout << "|" << leftAlign("  🕐 Time:            " + string(__TIME__), 100) << "|\n";
+    cout << "|" << centerText("", 98) << "|\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|" << centerText("", 98) << "|\n";
+    cout << "|" << centerText("🎉 Thank you for your purchase! 🎉", 102) << "|\n";
+    cout << "|" << centerText("Your order is being processed", 98) << "|\n";
+    cout << "|" << centerText("Have a wonderful day!", 98) << "|\n";
+    cout << "|" << centerText("", 98) << "|\n";
+    cout << "+==================================================================================================+\n";
 
     cout << "\nPress Enter to continue...";
     cin.get();
@@ -1477,25 +1477,25 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
     int totalItems = 0;
 
     cout << "\n";
-    cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║                                📊 ORDER HISTORY REPORT                                           ║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|                                REPORT: ORDER HISTORY REPORT                                           |\n";
+    cout << "+==================================================================================================+\n";
 
     if (orders.empty())
     {
-        cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "║                                  📭 No Orders Found                                              ║\n";
-        cout << "║                              No order history available                                          ║\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|                                                                                                  |\n";
+        cout << "|                                  📭 No Orders Found                                              |\n";
+        cout << "|                              No order history available                                          |\n";
+        cout << "|                                                                                                  |\n";
+        cout << "+==================================================================================================+\n";
         return;
     }
 
     // Header for order details with improved spacing
-    cout << "\n╔═══════╦══════════════════════╦══════════════════╦════════════════╦═══════════════╦══════════════════╗\n";
-    cout << "║  ID   ║      CUSTOMER        ║     STATUS       ║    PAYMENT     ║   DISCOUNT    ║      ITEMS       ║\n";
-    cout << "╠═══════╬══════════════════════╬══════════════════╬════════════════╬═══════════════╬══════════════════╣\n";
+    cout << "\n+=======+======================+==================+================+===============+==================+\n";
+    cout << "|  ID   |      CUSTOMER        |     STATUS       |    PAYMENT     |   DISCOUNT    |      ITEMS       |\n";
+    cout << "+=======+======================+==================+================+===============+==================+\n";
 
     for (const auto &order : orders)
     {
@@ -1511,15 +1511,15 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         string statusDisplay = order.status.empty() ? "Unknown" : order.status;
         if (order.status == "Completed")
         {
-            statusDisplay = "✅ Completed";
+            statusDisplay = "SUCCESS: Completed";
         }
         else if (order.status == "Pending")
         {
-            statusDisplay = "⏳ Pending";
+            statusDisplay = "PENDING: Pending";
         }
         else if (order.status == "Cancelled")
         {
-            statusDisplay = "❌ Cancelled";
+            statusDisplay = "ERROR: Cancelled";
         }
         else if (order.status.empty())
         {
@@ -1530,15 +1530,15 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         string paymentDisplay = order.paymentMethod.empty() ? "Unknown" : order.paymentMethod;
         if (order.paymentMethod == "Credit Card")
         {
-            paymentDisplay = "💳 Card";
+            paymentDisplay = "[A] Card";
         }
         else if (order.paymentMethod == "Cash")
         {
-            paymentDisplay = "💵 Cash";
+            paymentDisplay = "[S] Cash";
         }
         else if (order.paymentMethod == "Touch n Go" || order.paymentMethod == "Touch 'n Go")
         {
-            paymentDisplay = "📱 TnG";
+            paymentDisplay = "TnG: TnG";
         }
         else if (order.paymentMethod.empty())
         {
@@ -1548,29 +1548,29 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         ostringstream totalStream;
         totalStream << "RM " << fixed << setprecision(2) << order.total;
 
-        cout << "║" << centerText(to_string(order.orderId), 7)
-             << "║" << centerText(order.customer.name, 22)
-             << "║" << centerText(statusDisplay, 19)
-             << "║" << centerText(paymentDisplay, 18)
-             << "║" << centerText(totalStream.str(), 15)
-             << "║" << centerText(to_string(orderItemCount) + " items", 18)
-             << "║\n";
+        cout << "|" << centerText(to_string(order.orderId), 7)
+             << "|" << centerText(order.customer.name, 22)
+             << "|" << centerText(statusDisplay, 19)
+             << "|" << centerText(paymentDisplay, 18)
+             << "|" << centerText(totalStream.str(), 15)
+             << "|" << centerText(to_string(orderItemCount) + " items", 18)
+             << "|\n";
 
         totalSales += order.total;
     }
 
-    cout << "╠═══════╩══════════════════════╩══════════════════╩════════════════╩═══════════════╩══════════════════╣\n";
+    cout << "+=======+======================+==================+================+===============+==================+\n";
 
     // Detailed items breakdown
-    cout << "║                                                                                                     ║\n";
-    cout << "║                                   � DETAILED ORDER BREAKDOWN                                        ║\n";
-    cout << "║                                                                                                     ║\n";
-    cout << "╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "|                                                                                                     |\n";
+    cout << "|                                   � DETAILED ORDER BREAKDOWN                                        |\n";
+    cout << "|                                                                                                     |\n";
+    cout << "+=====================================================================================================+\n";
 
     for (const auto &order : orders)
     {
-        cout << "\n╔════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║ 🧾 Order #" << order.orderId << " - " << order.customer.name;
+        cout << "\n+============================================================================================================+\n";
+        cout << "| INVOICE Order #" << order.orderId << " - " << order.customer.name;
         if (!order.transactionId.empty())
         {
             cout << " (🆔 Transaction: " << order.transactionId << ")";
@@ -1578,10 +1578,10 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         cout << string(max(0, 76 - (int)(to_string(order.orderId).length() + order.customer.name.length() +
                                          (order.transactionId.empty() ? 0 : order.transactionId.length() + 19))),
                        ' ')
-             << "                  ║\n";
-        cout << "╠══════════════════════════════╦═══════╦════════════════╦═══════════════╦═══════════════════╦════════════════╣\n";
-        cout << "║         ITEM NAME            ║  QTY  ║     PRICE      ║   SUBTOTAL    ║  DISCOUNT PRICE   ║  ORDER TOTAL   ║\n";
-        cout << "╠══════════════════════════════╬═══════╬════════════════╬═══════════════╬═══════════════════╬════════════════╣\n";
+             << "                  |\n";
+        cout << "+==============================+=======+================+===============+===================+================+\n";
+        cout << "|         ITEM NAME            |  QTY  |     PRICE      |   SUBTOTAL    |  DISCOUNT PRICE   |  ORDER TOTAL   |\n";
+        cout << "+==============================+=======+================+===============+===================+================+\n";
 
         bool firstItem = true;
         for (const auto &itemPair : order.items)
@@ -1616,22 +1616,22 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
                     discountStream << "";
                 }
 
-                cout << "║" << centerText(catalog[index].name, 30)
-                     << "║" << centerText(to_string(itemPair.second), 7)
-                     << "║" << centerText(priceStream.str(), 16)
-                     << "║" << centerText(lineTotalStream.str(), 15)
-                     << "║" << centerText(discountStream.str(), 19)
-                     << "║" << centerText(totalStream.str(), 16) << "║\n";
+                cout << "|" << centerText(catalog[index].name, 30)
+                     << "|" << centerText(to_string(itemPair.second), 7)
+                     << "|" << centerText(priceStream.str(), 16)
+                     << "|" << centerText(lineTotalStream.str(), 15)
+                     << "|" << centerText(discountStream.str(), 19)
+                     << "|" << centerText(totalStream.str(), 16) << "|\n";
             }
         }
 
-        cout << "╠══════════════════════════════╩═══════╩════════════════╩═══════════════╩═══════════════════╩════════════════╣\n";
+        cout << "+==============================+=======+================+===============+===================+================+\n";
 
         // Order Information Table
-        cout << "║                                                                                                            ║\n";
-        cout << "╠════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-        cout << "║" << centerText("💳 PAYMENT METHOD", 56) << "║" << centerText("📊 STATUS", 55) << "║\n";
-        cout << "╠════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+        cout << "|                                                                                                            |\n";
+        cout << "+============================================================================================================+\n";
+        cout << "|" << centerText("[A] PAYMENT METHOD", 56) << "|" << centerText("REPORT: STATUS", 55) << "|\n";
+        cout << "+============================================================================================================+\n";
 
         // Prepare payment method display
         string paymentDisplay = order.paymentMethod.empty() ? "❓ Unknown" : "� " + order.paymentMethod;
@@ -1648,7 +1648,7 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         {
             if (!order.discountCode.empty())
             {
-                discountDisplay = "🏷️ " + order.discountCode;
+                discountDisplay = "CODE: " + order.discountCode;
                 if (order.discountType == "percentage")
                 {
                     discountDisplay += " (" + to_string((int)(order.discountRate * 100)) + "%)";
@@ -1666,22 +1666,22 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         }
         else
         {
-            discountDisplay = "❌ NO DISCOUNT";
+            discountDisplay = "ERROR: NO DISCOUNT";
         }
 
         // Prepare status display
         string statusDisplay;
         if (order.status == "Completed")
         {
-            statusDisplay = "✅ " + order.status;
+            statusDisplay = "SUCCESS: " + order.status;
         }
         else if (order.status == "Pending")
         {
-            statusDisplay = "⏳ " + order.status;
+            statusDisplay = "PENDING: " + order.status;
         }
         else if (order.status == "Cancelled")
         {
-            statusDisplay = "❌ " + order.status;
+            statusDisplay = "ERROR: " + order.status;
         }
         else if (order.status.empty())
         {
@@ -1689,19 +1689,19 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
         }
         else
         {
-            statusDisplay = "📋 " + order.status;
+            statusDisplay = "REVIEW: " + order.status;
         }
 
-        cout << "║" << centerText(paymentDisplay, 56) << "║" << centerText(statusDisplay, 54) << "║\n";
-        cout << "╚════════════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "|" << centerText(paymentDisplay, 56) << "|" << centerText(statusDisplay, 54) << "|\n";
+        cout << "+============================================================================================================+\n";
     }
 
     // Summary section moved here - after detailed breakdown
-    cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║                                    📈 SUMMARY STATISTICS                                         ║\n";
-    cout << "╠══════════════════════════════════════════════════════════╦═══════════════════════════════════════╣\n";
-    cout << "║                    METRIC                                ║                VALUE                  ║\n";
-    cout << "╠══════════════════════════════════════════════════════════╬═══════════════════════════════════════╣\n";
+    cout << "\n+==================================================================================================+\n";
+    cout << "|                                    STATS: SUMMARY STATISTICS                                         |\n";
+    cout << "+==========================================================+=======================================+\n";
+    cout << "|                    METRIC                                |                VALUE                  |\n";
+    cout << "+==========================================================+=======================================+\n";
 
     // Calculate average order value
     double averageOrder = (orders.size() > 0) ? totalSales / orders.size() : 0.0;
@@ -1713,14 +1713,14 @@ void displayOrderReport(const vector<Order> &orders, const vector<item> &catalog
     revenueStr << "RM " << fixed << setprecision(2) << totalSales;
     avgStr << "RM " << fixed << setprecision(2) << averageOrder;
 
-    cout << "║ 📦 Total Orders                                          ║" << centerText(ordersStr.str(), 39) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════╬═══════════════════════════════════════╣\n";
-    cout << "║ 🛍️  Total Items Sold                                      ║" << centerText(itemsStr.str(), 39) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════╬═══════════════════════════════════════╣\n";
-    cout << "║ 💰 Total Revenue                                         ║" << centerText(revenueStr.str(), 39) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════╬═══════════════════════════════════════╣\n";
-    cout << "║ 📊 Average Order Value                                   ║" << centerText(avgStr.str(), 39) << "║\n";
-    cout << "╚══════════════════════════════════════════════════════════╩═══════════════════════════════════════╝\n";
+    cout << "| ITEM: Total Orders                                          |" << centerText(ordersStr.str(), 39) << "|\n";
+    cout << "+==========================================================+=======================================+\n";
+    cout << "| PRODUCT CATALOG  Total Items Sold                                      |" << centerText(itemsStr.str(), 39) << "|\n";
+    cout << "+==========================================================+=======================================+\n";
+    cout << "| PRICE: Total Revenue                                         |" << centerText(revenueStr.str(), 39) << "|\n";
+    cout << "+==========================================================+=======================================+\n";
+    cout << "| REPORT: Average Order Value                                   |" << centerText(avgStr.str(), 39) << "|\n";
+    cout << "+==========================================================+=======================================+\n";
 
     cout << "\nPress Enter to continue...";
     cin.get();
@@ -1750,39 +1750,39 @@ void addItem(vector<item> &items)
     clearScreen();
 
     cout << "\n";
-    cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("📦 ADD NEW ITEM TO INVENTORY", 100) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║                                                                                                  ║\n";
-    cout << "║  Welcome to the Item Management System! You can add new items or restock existing ones.          ║\n";
-    cout << "║                                                                                                  ║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|" << centerText("ITEM: ADD NEW ITEM TO INVENTORY", 100) << "|\n";
+    cout << "+==================================================================================================+\n";
+    cout << "|                                                                                                  |\n";
+    cout << "|  Welcome to the Item Management System! You can add new items or restock existing ones.          |\n";
+    cout << "|                                                                                                  |\n";
+    cout << "+==================================================================================================+\n";
 
     // Category Selection with improved UI
 CATEGORY_SELECTION:
     while (true)
     {
         cout << "\n";
-        cout << "╔════════════════════════════════════════╗\n";
-        cout << "║" << centerText("📂 SELECT CATEGORY", 42) << "║\n";
-        cout << "╠════════════════════════════════════════╣\n";
-        cout << "║                                        ║\n";
-        cout << "║   🧴   1. PERSONAL CARE                ║\n";
-        cout << "║                                        ║\n";
-        cout << "║   💊   2. HEALTH SUPPLEMENT            ║\n";
-        cout << "║                                        ║\n";
-        cout << "║   🔧   3. TOOL                         ║\n";
-        cout << "║                                        ║\n";
-        cout << "║   ➕   4. Custom Category              ║\n";
-        cout << "║                                        ║\n";
-        cout << "║   🔙   5. Return to Staff Menu         ║\n";
-        cout << "║                                        ║\n";
-        cout << "╚════════════════════════════════════════╝\n";
-        cout << "┌────────────────────────────────────────┐\n";
+        cout << "+========================================+\n";
+        cout << "|" << centerText("CATEGORY: SELECT CATEGORY", 42) << "|\n";
+        cout << "+========================================+\n";
+        cout << "|                                        |\n";
+        cout << "|   🧴   1. PERSONAL CARE                |\n";
+        cout << "|                                        |\n";
+        cout << "|   💊   2. HEALTH SUPPLEMENT            |\n";
+        cout << "|                                        |\n";
+        cout << "|   🔧   3. TOOL                         |\n";
+        cout << "|                                        |\n";
+        cout << "|   ➕   4. Custom Category              |\n";
+        cout << "|                                        |\n";
+        cout << "|   🔙   5. Return to Staff Menu         |\n";
+        cout << "|                                        |\n";
+        cout << "+========================================+\n";
+        cout << "+----------------------------------------+\n";
         cout << "│" << centerText("Please select a category (1-5):", 40) << "│\n";
-        cout << "└────────────────────────────────────────┘\n";
+        cout << "+----------------------------------------+\n";
 
-        int categoryChoice = getIntInRange("➤ Your choice: ", 1, 5);
+        int categoryChoice = getIntInRange("> Your choice: ", 1, 5);
 
         if (categoryChoice == 5)
         {
@@ -1801,13 +1801,13 @@ CATEGORY_SELECTION:
             newItem.category = "TOOL";
             break;
         case 4:
-            cout << "\n┌────────────────────────────────────────┐\n";
+            cout << "\n+----------------------------------------+\n";
             cout << "│" << centerText("Enter Custom Category:", 40) << "│\n";
-            cout << "└────────────────────────────────────────┘\n";
-            newItem.category = getLimitedInput("➤ Category name (max 30 characters): ", 30, "Category name");
+            cout << "+----------------------------------------+\n";
+            newItem.category = getLimitedInput("> Category name (max 30 characters): ", 30, "Category name");
             if (newItem.category.empty())
             {
-                cout << "❌ Category cannot be empty. Please try again.\n";
+                cout << "ERROR: Category cannot be empty. Please try again.\n";
                 cout << "Press Enter to continue...";
                 cin.get();
                 continue;
@@ -1817,7 +1817,7 @@ CATEGORY_SELECTION:
             break;
         }
 
-        cout << "\n✅ Selected category: " << newItem.category << "\n";
+        cout << "\nSUCCESS: Selected category: " << newItem.category << "\n";
         cout << "Continue with this category? (Y/N): ";
         if (getYesNo() == 'Y')
             break;
@@ -1827,9 +1827,9 @@ CATEGORY_SELECTION:
     while (true)
     {
         cout << "\n";
-        cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║" << centerText("🏷️  SELECT ITEM NAME", 104) << "║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|" << centerText("CODE:  SELECT ITEM NAME", 104) << "|\n";
+        cout << "+==================================================================================================+\n";
 
         vector<string> availableNames;
         for (const auto &item : catalog)
@@ -1855,32 +1855,32 @@ CATEGORY_SELECTION:
         if (availableNames.empty())
         {
             cout << "\n📝 No existing items in " << newItem.category << " category.\n";
-            cout << "┌────────────────────────────────────────┐\n";
+            cout << "+----------------------------------------+\n";
             cout << "│" << centerText("Enter new item name:", 40) << "│\n";
-            cout << "└────────────────────────────────────────┘\n";
-            newItem.name = getLimitedInput("➤ Item name (max 30 characters): ", 30, "Item name");
+            cout << "+----------------------------------------+\n";
+            newItem.name = getLimitedInput("> Item name (max 30 characters): ", 30, "Item name");
             if (!newItem.name.empty())
             {
                 break;
             }
-            cout << "❌ Name cannot be empty. Please try again.\n";
+            cout << "ERROR: Name cannot be empty. Please try again.\n";
             cout << "Press Enter to continue...";
             cin.get();
             continue;
         }
 
-        cout << "\n┌──────────────────────────────────────────────────────────────────────────────────────────────────┐\n";
+        cout << "\n+--------------------------------------------------------------------------------------------------+\n";
         cout << "│" << centerText("Existing items in " + newItem.category + ":", 98) << "│\n";
-        cout << "├──────────────────────────────────────────────────────────────────────────────────────────────────┤\n";
+        cout << "+--------------------------------------------------------------------------------------------------+\n";
         for (size_t i = 0; i < availableNames.size(); ++i)
         {
             cout << "│  " << setw(2) << (i + 1) << ". " << setw(88) << left << availableNames[i] << "    │\n";
         }
         cout << "│  " << setw(2) << (availableNames.size() + 1) << ". " << setw(88) << left << "🆕 Create New Item Name" << "      │\n";
         cout << "│  " << setw(2) << (availableNames.size() + 2) << ". " << setw(88) << left << "🔙 Return to Category Selection" << "      │\n";
-        cout << "└──────────────────────────────────────────────────────────────────────────────────────────────────┘\n";
+        cout << "+--------------------------------------------------------------------------------------------------+\n";
 
-        int nameChoice = getIntInRange("➤ Your choice: ", 1, availableNames.size() + 2);
+        int nameChoice = getIntInRange("> Your choice: ", 1, availableNames.size() + 2);
 
         if (nameChoice == (int)availableNames.size() + 2)
         {
@@ -1891,13 +1891,13 @@ CATEGORY_SELECTION:
 
         if (nameChoice == (int)availableNames.size() + 1)
         {
-            cout << "\n┌────────────────────────────────────────┐\n";
+            cout << "\n+----------------------------------------+\n";
             cout << "│" << centerText("Enter new item name:", 40) << "│\n";
-            cout << "└────────────────────────────────────────┘\n";
-            newItem.name = getLimitedInput("➤ Item name (max 30 characters): ", 30, "Item name");
+            cout << "+----------------------------------------+\n";
+            newItem.name = getLimitedInput("> Item name (max 30 characters): ", 30, "Item name");
             if (newItem.name.empty())
             {
-                cout << "❌ Name cannot be empty. Please try again.\n";
+                cout << "ERROR: Name cannot be empty. Please try again.\n";
                 cout << "Press Enter to continue...";
                 cin.get();
                 continue;
@@ -1908,7 +1908,7 @@ CATEGORY_SELECTION:
             newItem.name = availableNames[nameChoice - 1];
         }
 
-        cout << "\n✅ Selected item: " << newItem.name << "\n";
+        cout << "\nSUCCESS: Selected item: " << newItem.name << "\n";
         cout << "Continue with this item name? (Y/N): ";
         if (getYesNo() == 'Y')
             break;
@@ -1929,17 +1929,17 @@ CATEGORY_SELECTION:
     if (existingIndex != -1)
     {
         cout << "\n";
-        cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║" << centerText("🔄 ITEM ALREADY EXISTS", 100) << "║\n";
-        cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "║  📦 Item Found     : " << setw(29) << left << newItem.name << "                                               ║\n";
-        cout << "║  📂 Category       : " << setw(29) << left << newItem.category << "                                               ║\n";
-        cout << "║  🏷️  Code           : " << setw(29) << left << catalog[existingIndex].code << "                                               ║\n";
-        cout << "║  💰 Price          : RM " << setw(26) << left << fixed << setprecision(2) << catalog[existingIndex].price << "                                               ║\n";
-        cout << "║  📊 Current Stock  : " << setw(29) << left << catalog[existingIndex].stock << "                                               ║\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|" << centerText("🔄 ITEM ALREADY EXISTS", 100) << "|\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|                                                                                                  |\n";
+        cout << "|  ITEM: Item Found     : " << setw(29) << left << newItem.name << "                                               |\n";
+        cout << "|  CATEGORY: Category       : " << setw(29) << left << newItem.category << "                                               |\n";
+        cout << "|  CODE:  Code           : " << setw(29) << left << catalog[existingIndex].code << "                                               |\n";
+        cout << "|  PRICE: Price          : RM " << setw(26) << left << fixed << setprecision(2) << catalog[existingIndex].price << "                                               |\n";
+        cout << "|  REPORT: Current Stock  : " << setw(29) << left << catalog[existingIndex].stock << "                                               |\n";
+        cout << "|                                                                                                  |\n";
+        cout << "+==================================================================================================+\n";
         cout << "\n🔄 Would you like to restock this existing item? (Y/N): ";
 
         if (getYesNo() == 'Y')
@@ -1956,28 +1956,28 @@ CATEGORY_SELECTION:
     {
         // Restock existing item with improved UI
         cout << "\n";
-        cout << "╔════════════════════════════════════════╗\n";
-        cout << "║" << centerText("📦 RESTOCK ITEM", 42) << "║\n";
-        cout << "╠════════════════════════════════════════╣\n";
-        cout << "║                                        ║\n";
-        cout << "║  Current Stock: " << right << catalog[existingIndex].stock << "                    ║\n";
-        cout << "║                                        ║\n";
-        cout << "╚════════════════════════════════════════╝\n";
+        cout << "+========================================+\n";
+        cout << "|" << centerText("ITEM: RESTOCK ITEM", 42) << "|\n";
+        cout << "+========================================+\n";
+        cout << "|                                        |\n";
+        cout << "|  Current Stock: " << right << catalog[existingIndex].stock << "                    |\n";
+        cout << "|                                        |\n";
+        cout << "+========================================+\n";
 
-        int additionalStock = getIntInRange("➤ Enter additional stock quantity: ", 0, 9999);
+        int additionalStock = getIntInRange("> Enter additional stock quantity: ", 0, 9999);
 
         catalog[existingIndex].stock += additionalStock;
 
         cout << "\n";
-        cout << "╔════════════════════════════════════════╗\n";
-        cout << "║" << centerText("✅ RESTOCK SUCCESSFUL", 41) << "║\n";
-        cout << "╠════════════════════════════════════════╣\n";
-        cout << "║                                        ║\n";
-        cout << "║  Item: " << setw(29) << left << newItem.name.substr(0, 29) << "   ║\n";
-        cout << "║  Added: " << setw(28) << right << additionalStock << "   ║\n";
-        cout << "║  New Stock: " << setw(24) << right << catalog[existingIndex].stock << "   ║\n";
-        cout << "║                                        ║\n";
-        cout << "╚════════════════════════════════════════╝\n";
+        cout << "+========================================+\n";
+        cout << "|" << centerText("SUCCESS: RESTOCK SUCCESSFUL", 41) << "|\n";
+        cout << "+========================================+\n";
+        cout << "|                                        |\n";
+        cout << "|  Item: " << setw(29) << left << newItem.name.substr(0, 29) << "   |\n";
+        cout << "|  Added: " << setw(28) << right << additionalStock << "   |\n";
+        cout << "|  New Stock: " << setw(24) << right << catalog[existingIndex].stock << "   |\n";
+        cout << "|                                        |\n";
+        cout << "+========================================+\n";
 
         cout << "\nPress Enter to continue...";
         cin.get();
@@ -1987,17 +1987,17 @@ CATEGORY_SELECTION:
     {
         // Add new item with improved UI
         cout << "\n";
-        cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║" << centerText("➕ ADD NEW ITEM", 100) << "║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|" << centerText("➕ ADD NEW ITEM", 100) << "|\n";
+        cout << "+==================================================================================================+\n";
 
         // Code input
-        cout << "\n┌────────────────────────────────────────┐\n";
-        cout << "│" << centerText("🏷️  Enter Item Code", 40) << "│\n";
-        cout << "└────────────────────────────────────────┘\n";
+        cout << "\n+----------------------------------------+\n";
+        cout << "│" << centerText("CODE:  Enter Item Code", 40) << "│\n";
+        cout << "+----------------------------------------+\n";
         while (true)
         {
-            newItem.code = getIntInRange("➤ Enter unique 4-digit code (e.g., 1001): ", 1000, 9999);
+            newItem.code = getIntInRange("> Enter unique 4-digit code (e.g., 1001): ", 1000, 9999);
 
             bool codeExists = false;
             for (const auto &item : items)
@@ -2011,74 +2011,74 @@ CATEGORY_SELECTION:
 
             if (codeExists)
             {
-                cout << "❌ Error: Code " << newItem.code << " is already in use. Please try another code.\n";
+                cout << "ERROR: Error: Code " << newItem.code << " is already in use. Please try another code.\n";
                 continue;
             }
 
-            cout << "✅ Code " << newItem.code << " is available. Use this code? (Y/N): ";
+            cout << "SUCCESS: Code " << newItem.code << " is available. Use this code? (Y/N): ";
             if (getYesNo() == 'Y')
                 break;
         }
 
         // Price input
-        cout << "\n┌────────────────────────────────────────┐\n";
-        cout << "│" << centerText("💰 Enter Item Price", 40) << "│\n";
-        cout << "└────────────────────────────────────────┘\n";
+        cout << "\n+----------------------------------------+\n";
+        cout << "│" << centerText("PRICE: Enter Item Price", 40) << "│\n";
+        cout << "+----------------------------------------+\n";
         while (true)
         {
-            cout << "➤ Enter price (RM): ";
+            cout << "> Enter price (RM): ";
             if (cin >> newItem.price && newItem.price > 0)
             {
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "✅ Price set to RM " << fixed << setprecision(2) << newItem.price << ". Confirm? (Y/N): ";
+                cout << "SUCCESS: Price set to RM " << fixed << setprecision(2) << newItem.price << ". Confirm? (Y/N): ";
                 if (getYesNo() == 'Y')
                     break;
             }
             else
             {
-                cout << "❌ Invalid price. Please enter a value greater than 0.\n";
+                cout << "ERROR: Invalid price. Please enter a value greater than 0.\n";
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
 
         // Stock input
-        cout << "\n┌────────────────────────────────────────┐\n";
-        cout << "│" << centerText("📦 Enter Initial Stock", 40) << "│\n";
-        cout << "└────────────────────────────────────────┘\n";
-        newItem.stock = getIntInRange("➤ Enter initial stock quantity: ", 0, 9999);
+        cout << "\n+----------------------------------------+\n";
+        cout << "│" << centerText("ITEM: Enter Initial Stock", 40) << "│\n";
+        cout << "+----------------------------------------+\n";
+        newItem.stock = getIntInRange("> Enter initial stock quantity: ", 0, 9999);
 
         // Final confirmation with summary
         cout << "\n";
-        cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║" << centerText("📋 REVIEW NEW ITEM", 98) << "║\n";
-        cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "║  📂 Category: " << setw(15) << left << newItem.category << "                                      ║\n";
-        cout << "║  📦 Name: " << setw(19) << left << newItem.name << "                                              ║\n";
-        cout << "║  🏷️  Code: " << setw(20) << left << newItem.code << "                                             ║\n";
-        cout << "║  💰 Price: RM " << setw(15) << left << fixed << setprecision(2) << newItem.price << "             ║\n";
-        cout << "║  📊 Stock: " << setw(19) << left << newItem.stock << "                                            ║\n";
-        cout << "║                                                                                                  ║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|" << centerText("REVIEW NEW ITEM", 98) << "|\n";
+        cout << "+==================================================================================================+\n";
+        cout << "|                                                                                                  |\n";
+        cout << "|  Category: " << setw(15) << left << newItem.category << "                                        |\n";
+        cout << "|  Name: " << setw(19) << left << newItem.name << "                                                |\n";
+        cout << "|  Code: " << setw(20) << left << newItem.code << "                                                |\n";
+        cout << "|  Price: RM " << setw(15) << left << fixed << setprecision(2) << newItem.price << "                |\n";
+        cout << "|  REPORT: Stock: " << setw(19) << left << newItem.stock << "                                            |\n";
+        cout << "|                                                                                                  |\n";
+        cout << "+==================================================================================================+\n";
 
         cout << "\n🔍 Review the information above. Add this item to inventory? (Y/N): ";
         if (getYesNo() == 'Y')
         {
             items.push_back(newItem);
             cout << "\n";
-            cout << "╔════════════════════════════════════════╗\n";
-            cout << "║" << centerText("✅ ITEM ADDED SUCCESSFULLY", 40) << "║\n";
-            cout << "╠════════════════════════════════════════╣\n";
-            cout << "║                                        ║\n";
-            cout << "║  " << setw(34) << left << newItem.name.substr(0, 34) << "  ║\n";
-            cout << "║  has been added to inventory!          ║\n";
-            cout << "║                                        ║\n";
-            cout << "╚════════════════════════════════════════╝\n";
+            cout << "+========================================+\n";
+            cout << "|" << centerText("SUCCESS: ITEM ADDED SUCCESSFULLY", 40) << "|\n";
+            cout << "+========================================+\n";
+            cout << "|                                        |\n";
+            cout << "|  " << setw(34) << left << newItem.name.substr(0, 34) << "  |\n";
+            cout << "|  has been added to inventory!          |\n";
+            cout << "|                                        |\n";
+            cout << "+========================================+\n";
         }
         else
         {
-            cout << "\n❌ Item addition cancelled. No changes made.\n";
+            cout << "\nERROR: Item addition cancelled. No changes made.\n";
         }
 
         cout << "\nPress Enter to continue...";
@@ -2143,25 +2143,25 @@ void applyDiscount(Order &order)
 
 void enhancedDiscountSystem(Order &order)
 {
-    cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🎁 AVAILABLE DISCOUNTS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("PERCENTAGE DISCOUNTS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "\n+==============================================================================================+\n";
+    cout << "|" << centerText("[2] AVAILABLE DISCOUNTS", 94) << "|\n";
+    cout << "+==============================================================================================+\n";
+    cout << "|" << centerText("PERCENTAGE DISCOUNTS", 94) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     // Display percentage discounts
     int index = 1;
     vector<pair<string, double>> percentageOptions;
     for (const auto &code : promoCodes)
     {
-        cout << "║" << leftAlign(" " + to_string(index) + ". " + code.first + " - " + to_string((int)(code.second * 100)) + "% off", 94) << "║\n";
+        cout << "|" << leftAlign(" " + to_string(index) + ". " + code.first + " - " + to_string((int)(code.second * 100)) + "% off", 94) << "|\n";
         percentageOptions.push_back(code);
         index++;
     }
 
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("FIXED AMOUNT DISCOUNTS", 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "+==============================================================================================+\n";
+    cout << "|" << centerText("FIXED AMOUNT DISCOUNTS", 94) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     // Display fixed discounts
     vector<pair<string, FixedDiscount>> fixedOptions;
@@ -2169,16 +2169,16 @@ void enhancedDiscountSystem(Order &order)
     {
         ostringstream amountStr;
         amountStr << "RM " << fixed << setprecision(2) << code.second.amount;
-        cout << "║" << leftAlign(" " + to_string(index) + ". " + code.first + " - " + amountStr.str() + " off (" + code.second.description + ")", 94) << "║\n";
+        cout << "|" << leftAlign(" " + to_string(index) + ". " + code.first + " - " + amountStr.str() + " off (" + code.second.description + ")", 94) << "|\n";
         fixedOptions.push_back(code);
         index++;
     }
 
-    cout << "║" << leftAlign(" " + to_string(index) + ". No discount", 94) << "║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "|" << leftAlign(" " + to_string(index) + ". No discount", 94) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     cout << "Select a discount option (1-" << index << "): ";
-    int choice = getIntInRange("➤ Your choice: ", 1, index);
+    int choice = getIntInRange("> Your choice: ", 1, index);
 
     if (choice <= percentageOptions.size())
     {
@@ -2193,7 +2193,7 @@ void enhancedDiscountSystem(Order &order)
         order.discountCode = selected.first;
         order.discountType = "percentage";
 
-        cout << "\n✅ Applied " << selected.first << " - " << (int)(selected.second * 100)
+        cout << "\nSUCCESS: Applied " << selected.first << " - " << (int)(selected.second * 100)
              << "% discount (RM " << fixed << setprecision(2) << discountAmount << ")\n";
         cout << "New Total: RM " << fixed << setprecision(2) << order.total << "\n";
     }
@@ -2206,7 +2206,7 @@ void enhancedDiscountSystem(Order &order)
         // Check minimum purchase requirement
         if (order.total < selected.second.minPurchase)
         {
-            cout << "\n❌ " << selected.first << " requires minimum purchase of RM "
+            cout << "\nERROR: " << selected.first << " requires minimum purchase of RM "
                  << fixed << setprecision(2) << selected.second.minPurchase << "\n";
             cout << "Your current order total: RM " << fixed << setprecision(2) << order.total << "\n";
             return;
@@ -2226,7 +2226,7 @@ void enhancedDiscountSystem(Order &order)
         order.discountCode = selected.first;
         order.discountType = "fixed";
 
-        cout << "\n✅ Applied " << selected.first << " - RM " << fixed << setprecision(2)
+        cout << "\nSUCCESS: Applied " << selected.first << " - RM " << fixed << setprecision(2)
              << discountAmount << " discount\n";
         cout << "New Total: RM " << fixed << setprecision(2) << order.total << "\n";
     }
@@ -2258,51 +2258,51 @@ void calculateTaxAndCharges(Order &order)
 
 void configureTaxSettings()
 {
-    cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("⚙️ TAX CONFIGURATION", 99) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << leftAlign(" Current Settings:", 94) << "║\n";
+    cout << "\n+==============================================================================================+\n";
+    cout << "|" << centerText("CONFIG: TAX CONFIGURATION", 99) << "|\n";
+    cout << "+==============================================================================================+\n";
+    cout << "|" << leftAlign(" Current Settings:", 94) << "|\n";
 
     ostringstream taxRateStr, serviceRateStr;
     taxRateStr << fixed << setprecision(1) << (taxConfig.standardRate * 100) << "%";
     serviceRateStr << fixed << setprecision(1) << (taxConfig.serviceChargeRate * 100) << "%";
 
-    cout << "║" << leftAlign(" Standard Tax Rate: " + taxRateStr.str(), 94) << "║\n";
-    cout << "║" << leftAlign(" Service Charge Rate: " + serviceRateStr.str(), 94) << "║\n";
-    cout << "║" << leftAlign(" Service Charge Enabled: " + string(taxConfig.serviceChargeEnabled ? "Yes" : "No"), 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << leftAlign(" 1. Change Standard Tax Rate", 94) << "║\n";
-    cout << "║" << leftAlign(" 2. Change Service Charge Rate", 94) << "║\n";
-    cout << "║" << leftAlign(" 3. Toggle Service Charge", 94) << "║\n";
-    cout << "║" << leftAlign(" 4. Return to Main Menu", 94) << "║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "|" << leftAlign(" Standard Tax Rate: " + taxRateStr.str(), 94) << "|\n";
+    cout << "|" << leftAlign(" Service Charge Rate: " + serviceRateStr.str(), 94) << "|\n";
+    cout << "|" << leftAlign(" Service Charge Enabled: " + string(taxConfig.serviceChargeEnabled ? "Yes" : "No"), 94) << "|\n";
+    cout << "+==============================================================================================+\n";
+    cout << "|" << leftAlign(" 1. Change Standard Tax Rate", 94) << "|\n";
+    cout << "|" << leftAlign(" 2. Change Service Charge Rate", 94) << "|\n";
+    cout << "|" << leftAlign(" 3. Toggle Service Charge", 94) << "|\n";
+    cout << "|" << leftAlign(" 4. Return to Main Menu", 94) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     cout << "Enter your choice (1-4): ";
-    int choice = getIntInRange("➤ Your choice: ", 1, 4);
+    int choice = getIntInRange("> Your choice: ", 1, 4);
 
     switch (choice)
     {
     case 1:
         cout << "Enter new tax rate (0-50%): ";
         {
-            int taxPercent = getIntInRange("➤ Tax rate: ", 0, 50);
+            int taxPercent = getIntInRange("> Tax rate: ", 0, 50);
             taxConfig.standardRate = taxPercent / 100.0;
-            cout << "✅ Tax rate updated to " << taxPercent << "%\n";
+            cout << "SUCCESS: Tax rate updated to " << taxPercent << "%\n";
             saveTaxConfig(taxConfig, "tax_config.txt");
         }
         break;
     case 2:
         cout << "Enter new service charge rate (0-20%): ";
         {
-            int servicePercent = getIntInRange("➤ Service rate: ", 0, 20);
+            int servicePercent = getIntInRange("> Service rate: ", 0, 20);
             taxConfig.serviceChargeRate = servicePercent / 100.0;
-            cout << "✅ Service charge rate updated to " << servicePercent << "%\n";
+            cout << "SUCCESS: Service charge rate updated to " << servicePercent << "%\n";
             saveTaxConfig(taxConfig, "tax_config.txt");
         }
         break;
     case 3:
         taxConfig.serviceChargeEnabled = !taxConfig.serviceChargeEnabled;
-        cout << "✅ Service charge " << (taxConfig.serviceChargeEnabled ? "enabled" : "disabled") << "\n";
+        cout << "SUCCESS: Service charge " << (taxConfig.serviceChargeEnabled ? "enabled" : "disabled") << "\n";
         saveTaxConfig(taxConfig, "tax_config.txt");
         break;
     case 4:
@@ -2317,11 +2317,11 @@ void configureTaxSettings()
 void displayOffersAndPromotions()
 {
     clearScreen();
-    cout << "\n╔═══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🎁 CURRENT OFFERS & PROMOTIONS", 97) << "║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("💯 PERCENTAGE DISCOUNTS", 97) << "║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "\n+===============================================================================================+\n";
+    cout << "|" << centerText("[2] CURRENT OFFERS & PROMOTIONS", 97) << "|\n";
+    cout << "+===============================================================================================+\n";
+    cout << "|" << centerText("💯 PERCENTAGE DISCOUNTS", 97) << "|\n";
+    cout << "+===============================================================================================+\n";
 
     for (const auto &promo : promoCodes)
     {
@@ -2345,59 +2345,59 @@ void displayOffersAndPromotions()
         else
             description = "Special promotional offer";
 
-        cout << "║ 🏷️  " << leftAlign(promo.first + " - " + to_string((int)(promo.second * 100)) + "% OFF", 30)
-             << "│ " << leftAlign(description, 58) << " ║\n";
+        cout << "| CODE:  " << leftAlign(promo.first + " - " + to_string((int)(promo.second * 100)) + "% OFF", 30)
+             << "│ " << leftAlign(description, 58) << " |\n";
     }
 
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("💰 FIXED AMOUNT DISCOUNTS", 97) << "║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "+===============================================================================================+\n";
+    cout << "|" << centerText("PRICE: FIXED AMOUNT DISCOUNTS", 97) << "|\n";
+    cout << "+===============================================================================================+\n";
 
     for (const auto &fixed : fixedDiscounts)
     {
-        cout << "║ 💵  " << leftAlign(fixed.first + " - RM " + to_string((int)fixed.second.amount) + " OFF", 30)
-             << "│ " << leftAlign(fixed.second.description, 58) << "║\n";
+        cout << "| [S]  " << leftAlign(fixed.first + " - RM " + to_string((int)fixed.second.amount) + " OFF", 30)
+             << "│ " << leftAlign(fixed.second.description, 58) << "|\n";
     }
 
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("🎯 AUTOMATIC DISCOUNTS", 97) << "║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "+===============================================================================================+\n";
+    cout << "|" << centerText("🎯 AUTOMATIC DISCOUNTS", 97) << "|\n";
+    cout << "+===============================================================================================+\n";
 
-    cout << "║ 🏆 TIERED DISCOUNTS (Applied automatically based on order total):                             ║\n";
+    cout << "| 🏆 TIERED DISCOUNTS (Applied automatically based on order total):                             |\n";
     for (const auto &tier : tieredDiscounts)
     {
-        cout << "║    • " << leftAlign(tier.description, 89) << "║\n";
+        cout << "|    • " << leftAlign(tier.description, 89) << "|\n";
     }
 
-    cout << "║                                                                                               ║\n";
-    cout << "║ 🎪 COMBO DISCOUNTS (Applied when buying from multiple categories):                            ║\n";
+    cout << "|                                                                                               |\n";
+    cout << "| 🎪 COMBO DISCOUNTS (Applied when buying from multiple categories):                            |\n";
     for (const auto &combo : comboDiscounts)
     {
-        cout << "║    • " << leftAlign(combo.description, 89) << "║\n";
+        cout << "|    • " << leftAlign(combo.description, 89) << "|\n";
     }
 
-    cout << "║                                                                                               ║\n";
-    cout << "║ ⏰ TIME-BASED DISCOUNTS (Applied during specific hours):                                      ║\n";
+    cout << "|                                                                                               |\n";
+    cout << "| ⏰ TIME-BASED DISCOUNTS (Applied during specific hours):                                      |\n";
     for (const auto &timeDeal : timeDiscounts)
     {
-        cout << "║    • " << leftAlign(timeDeal.description, 89) << "║\n";
+        cout << "|    • " << leftAlign(timeDeal.description, 89) << "|\n";
     }
 
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("💡 HOW TO USE", 97) << "║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║ • Enter the promo code during checkout to apply discount                                      ║\n";
-    cout << "║ • Codes are case-insensitive (SAVE5 = save5 = Save5)                                          ║\n";
-    cout << "║ • Only one discount code can be applied per order                                             ║\n";
-    cout << "║ • Some offers may require minimum purchase amount                                             ║\n";
-    cout << "║ • Fixed discounts have maximum 95% off limit for order total                                  ║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << centerText("ℹ️  Current Tax & Service Information", 100) << "║\n";
-    cout << "╠═══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║ • Service Charge: " << (taxConfig.serviceChargeEnabled ? to_string((int)(taxConfig.serviceChargeRate * 100)) + "% (applied to subtotal)" : "Disabled") << string(51, ' ') << "║\n";
-    cout << "║ • Tax Rate: " << to_string((int)(taxConfig.standardRate * 100)) << "% (applied to subtotal + service charge)" << string(40, ' ') << "║\n";
-    cout << "║ • Discounts are applied to the final total (after tax & service charge)                       ║\n";
-    cout << "╚═══════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "+===============================================================================================+\n";
+    cout << "|" << centerText("💡 HOW TO USE", 97) << "|\n";
+    cout << "+===============================================================================================+\n";
+    cout << "| • Enter the promo code during checkout to apply discount                                      |\n";
+    cout << "| • Codes are case-insensitive (SAVE5 = save5 = Save5)                                          |\n";
+    cout << "| • Only one discount code can be applied per order                                             |\n";
+    cout << "| • Some offers may require minimum purchase amount                                             |\n";
+    cout << "| • Fixed discounts have maximum 95% off limit for order total                                  |\n";
+    cout << "+===============================================================================================+\n";
+    cout << "|" << centerText("INFO:  Current Tax & Service Information", 100) << "|\n";
+    cout << "+===============================================================================================+\n";
+    cout << "| • Service Charge: " << (taxConfig.serviceChargeEnabled ? to_string((int)(taxConfig.serviceChargeRate * 100)) + "% (applied to subtotal)" : "Disabled") << string(51, ' ') << "|\n";
+    cout << "| • Tax Rate: " << to_string((int)(taxConfig.standardRate * 100)) << "% (applied to subtotal + service charge)" << string(40, ' ') << "|\n";
+    cout << "| • Discounts are applied to the final total (after tax & service charge)                       |\n";
+    cout << "+===============================================================================================+\n";
 
     cout << "\n🔙 Press Enter to return to main menu...";
     cin.get();
@@ -2457,7 +2457,7 @@ void returnToPreviousPage()
     else
     {
         clearScreen();
-        cout << "🏠 Returning to main menu...\n";
+        cout << "HOME: Returning to main menu...\n";
         cout << "Press Enter to continue...";
         cin.get();
     }
@@ -2510,21 +2510,21 @@ void OrderEntry(int customerId, Order &order)
             popPage(); // Remove item selection page after completing
 
             cout << "\n";
-            cout << "╔════════════════════════════════════════╗\n";
-            cout << "║" << centerText("💡 WHAT'S NEXT?", 42) << "║\n";
-            cout << "╠════════════════════════════════════════╣\n";
-            cout << "║                                        ║\n";
-            cout << "║   🛒   1. Add more items               ║\n";
-            cout << "║                                        ║\n";
-            cout << "║   💳   2. Proceed to Payment           ║\n";
-            cout << "║                                        ║\n";
-            cout << "║   ↩️   3. Return to Previous Page       ║\n";
-            cout << "║                                        ║\n";
-            cout << "╚════════════════════════════════════════╝\n";
-            cout << "┌────────────────────────────────────────┐\n";
+            cout << "+========================================+\n";
+            cout << "|" << centerText("💡 WHAT'S NEXT?", 42) << "|\n";
+            cout << "+========================================+\n";
+            cout << "|                                        |\n";
+            cout << "|   [1]   1. Add more items               |\n";
+            cout << "|                                        |\n";
+            cout << "|   [A]   2. Proceed to Payment           |\n";
+            cout << "|                                        |\n";
+            cout << "|   ↩️   3. Return to Previous Page       |\n";
+            cout << "|                                        |\n";
+            cout << "+========================================+\n";
+            cout << "+----------------------------------------+\n";
             cout << "│" << centerText("Please select an option (1-3):", 40) << "│\n";
-            cout << "└────────────────────────────────────────┘\n";
-            int choice = getIntInRange("➤ Your choice: ", 1, 3);
+            cout << "+----------------------------------------+\n";
+            int choice = getIntInRange("> Your choice: ", 1, 3);
             if (choice == 3)
             {
                 // Use step-based navigation to go back
@@ -2545,7 +2545,7 @@ void OrderEntry(int customerId, Order &order)
             {
                 if (cart.empty())
                 {
-                    cout << "\n❌ Your cart is empty! Please add items before proceeding to payment.\n";
+                    cout << "\nERROR: Your cart is empty! Please add items before proceeding to payment.\n";
                     cout << "Press Enter to continue...";
                     cin.get();
                     continue; // Stay in item selection
@@ -2587,27 +2587,27 @@ void OrderEntry(int customerId, Order &order)
 
             // Display total in a nice box
             cout << "\n";
-            cout << "┌────────────────────────────────────────┐\n";
+            cout << "+----------------------------------------+\n";
             ostringstream totalStr;
             totalStr << "Total: RM " << fixed << setprecision(2) << order.total;
             cout << "│" << centerText(totalStr.str(), 40) << "│\n";
-            cout << "└────────────────────────────────────────┘\n";
+            cout << "+----------------------------------------+\n";
 
             // Display options in a nice box
             cout << "\n";
-            cout << "╔════════════════════════════════════════╗\n";
-            cout << "║" << centerText("💡 WHAT'S NEXT?", 42) << "║\n";
-            cout << "╠════════════════════════════════════════╣\n";
-            cout << "║                                        ║\n";
-            cout << "║   💳   1. Proceed to Payment           ║\n";
-            cout << "║                                        ║\n";
-            cout << "║   ↩️   2. Return to Previous Page       ║\n";
-            cout << "║                                        ║\n";
-            cout << "╚════════════════════════════════════════╝\n";
-            cout << "┌────────────────────────────────────────┐\n";
+            cout << "+========================================+\n";
+            cout << "|" << centerText("💡 WHAT'S NEXT?", 42) << "|\n";
+            cout << "+========================================+\n";
+            cout << "|                                        |\n";
+            cout << "|   [A]   1. Proceed to Payment           |\n";
+            cout << "|                                        |\n";
+            cout << "|   ↩️   2. Return to Previous Page       |\n";
+            cout << "|                                        |\n";
+            cout << "+========================================+\n";
+            cout << "+----------------------------------------+\n";
             cout << "│" << centerText("Please select an option (1-2):", 40) << "│\n";
-            cout << "└────────────────────────────────────────┘\n";
-            int proceedChoice = getIntInRange("➤ Your choice: ", 1, 2);
+            cout << "+----------------------------------------+\n";
+            int proceedChoice = getIntInRange("> Your choice: ", 1, 2);
             if (proceedChoice == 2)
             {
                 // Use step-based navigation to go back
@@ -2738,17 +2738,14 @@ double calculateComboDiscount(const Order &order, const vector<item> &catalog)
 
 double calculateTimeBasedDiscount()
 {
-    time_t now = time(0);
-    tm *timeinfo = localtime(&now);
-    int currentHour = timeinfo->tm_hour;
-
-    for (const auto &timeDeal : timeDiscounts)
-    {
-        if (currentHour >= timeDeal.startHour && currentHour < timeDeal.endHour)
-        {
-            return timeDeal.discountRate;
-        }
-    }
+    time_t now = time(0); // <-- Add this line to define 'now'
+    tm timeinfo;
+#if defined(_MSC_VER)
+    localtime_s(&timeinfo, &now);
+    tm *timeinfoPtr = &timeinfo;
+#else
+    tm *timeinfoPtr = localtime(&now);
+#endif
     return 0.0;
 }
 
@@ -2764,14 +2761,14 @@ bool isDiscountValid(const string &code, double orderTotal)
 
 void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
 {
-    cout << "\n╔══════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║" << centerText("🎯 SMART DISCOUNT ANALYZER", 96) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "\n+==============================================================================================+\n";
+    cout << "|" << centerText("🎯 SMART DISCOUNT ANALYZER", 96) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     ostringstream currentTotalStr;
     currentTotalStr << "RM " << fixed << setprecision(2) << order.total;
-    cout << "║" << leftAlign(" Current Order Total: " + currentTotalStr.str(), 94) << "║\n";
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "|" << leftAlign(" Current Order Total: " + currentTotalStr.str(), 94) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     // Check automatic tiered discount
     double tieredRate = calculateBestTieredDiscount(order.total);
@@ -2780,7 +2777,7 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
         double tieredAmount = order.total * tieredRate;
         ostringstream tieredAmountStr;
         tieredAmountStr << "RM " << fixed << setprecision(2) << tieredAmount;
-        cout << "║ 🏆 " << leftAlign("AUTOMATIC TIER DISCOUNT: " + to_string((int)(tieredRate * 100)) + "% off (" + tieredAmountStr.str() + ")", 90) << " ║\n";
+        cout << "| 🏆 " << leftAlign("AUTOMATIC TIER DISCOUNT: " + to_string((int)(tieredRate * 100)) + "% off (" + tieredAmountStr.str() + ")", 90) << " |\n";
     }
 
     // Check combo discount
@@ -2790,7 +2787,7 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
         double comboAmount = order.total * comboRate;
         ostringstream comboAmountStr;
         comboAmountStr << "RM " << fixed << setprecision(2) << comboAmount;
-        cout << "║ 🎪 " << leftAlign("COMBO BONUS: " + to_string((int)(comboRate * 100)) + "% off (" + comboAmountStr.str() + ")", 90) << " ║\n";
+        cout << "| 🎪 " << leftAlign("COMBO BONUS: " + to_string((int)(comboRate * 100)) + "% off (" + comboAmountStr.str() + ")", 90) << " |\n";
     }
 
     // Check time-based discount
@@ -2800,21 +2797,21 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
         double timeAmount = order.total * timeRate;
         ostringstream timeAmountStr;
         timeAmountStr << "RM " << fixed << setprecision(2) << timeAmount;
-        cout << "║ ⏰ " << leftAlign("TIME SPECIAL: " + to_string((int)(timeRate * 100)) + "% off (" + timeAmountStr.str() + ")", 90) << "║\n";
+        cout << "| ⏰ " << leftAlign("TIME SPECIAL: " + to_string((int)(timeRate * 100)) + "% off (" + timeAmountStr.str() + ")", 90) << "|\n";
     }
 
     // Find the best automatic discount
     double bestAutoRate = max({tieredRate, comboRate, timeRate});
 
-    cout << "╠══════════════════════════════════════════════════════════════════════════════════════════════╣\n";
-    cout << "║" << leftAlign(" DISCOUNT OPTIONS:", 94) << "║\n";
-    cout << "║" << leftAlign(" 1. Apply Best Automatic Discount (" + to_string((int)(bestAutoRate * 100)) + "% off)", 94) << "║\n";
-    cout << "║" << leftAlign(" 2. Browse All Available Discounts", 94) << "║\n";
-    cout << "║" << leftAlign(" 3. Skip Discount", 94) << "║\n";
-    cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "+==============================================================================================+\n";
+    cout << "|" << leftAlign(" DISCOUNT OPTIONS:", 94) << "|\n";
+    cout << "|" << leftAlign(" 1. Apply Best Automatic Discount (" + to_string((int)(bestAutoRate * 100)) + "% off)", 94) << "|\n";
+    cout << "|" << leftAlign(" 2. Browse All Available Discounts", 94) << "|\n";
+    cout << "|" << leftAlign(" 3. Skip Discount", 94) << "|\n";
+    cout << "+==============================================================================================+\n";
 
     cout << "Enter your choice (1-3): ";
-    int choice = getIntInRange("➤ Your choice: ", 1, 3);
+    int choice = getIntInRange("> Your choice: ", 1, 3);
 
     switch (choice)
     {
@@ -2844,13 +2841,13 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
                 order.discountType = "automatic_time";
             }
 
-            cout << "\n✅ Applied best automatic discount: " << (int)(bestAutoRate * 100)
+            cout << "\nSUCCESS: Applied best automatic discount: " << (int)(bestAutoRate * 100)
                  << "% off (RM " << fixed << setprecision(2) << discountAmount << ")\n";
             cout << "New Total: RM " << fixed << setprecision(2) << order.total << "\n";
         }
         else
         {
-            cout << "\n❌ No automatic discounts available for your order.\n";
+            cout << "\nERROR: No automatic discounts available for your order.\n";
         }
         break;
     }
@@ -2867,6 +2864,7 @@ void showAdvancedDiscountOptions(Order &order, const vector<item> &catalog)
 
 int main()
 {
+    // Load items from file or initialize default catalog
     loadItems(catalog, "items.txt"); // tries to load from "items.txt"
     if (catalog.empty())
     {
@@ -2911,23 +2909,23 @@ int main()
                 {
                     clearScreen();
                     cout << "\n";
-                    cout << "╔════════════════════════════════════════╗\n";
-                    cout << "║" << centerText("👨‍💼 STAFF MENU", 47) << "║\n";
-                    cout << "╠════════════════════════════════════════╣\n";
-                    cout << "║                                        ║\n";
-                    cout << "║   📦   1. Add Item                     ║\n";
-                    cout << "║                                        ║\n";
-                    cout << "║   📊   2. View Report                  ║\n";
-                    cout << "║                                        ║\n";
-                    cout << "║   ⚙️    3. Tax Configuration            ║\n";
-                    cout << "║                                        ║\n";
-                    cout << "║   🏠   4. Return to Main Menu          ║\n";
-                    cout << "║                                        ║\n";
-                    cout << "╚════════════════════════════════════════╝\n";
-                    cout << "┌────────────────────────────────────────┐\n";
-                    cout << "│" << centerText("Please select an option (1-4):", 40) << "│\n";
-                    cout << "└────────────────────────────────────────┘\n";
-                    int staffChoice = getIntInRange("➤ Your choice: ", 1, 4);
+                    cout << "+========================================+\n";
+                    cout << "|" << centerText("STAFF MENU", 47) << "|\n";
+                    cout << "+========================================+\n";
+                    cout << "|                                        |\n";
+                    cout << "|   1. Add Item                          |\n";
+                    cout << "|                                        |\n";
+                    cout << "|   2. View Report                       |\n";
+                    cout << "|                                        |\n";
+                    cout << "|   3. Tax Configuration                 |\n";
+                    cout << "|                                        |\n";
+                    cout << "|   4. Return to Main Menu               |\n";
+                    cout << "|                                        |\n";
+                    cout << "+========================================+\n";
+                    cout << "+----------------------------------------+\n";
+                    cout << "|" << centerText("Please select an option (1-4):", 40) << "|\n";
+                    cout << "+----------------------------------------+\n";
+                    int staffChoice = getIntInRange("> Your choice: ", 1, 4);
 
                     if (staffChoice == 1)
                     {
